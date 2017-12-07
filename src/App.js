@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import Home from './Menu';
+import MenuBar from './Menu';
+import client from './apolloClient';
+
+import { ApolloProvider } from 'react-apollo';
 
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <div class="ui container">
-          <Home />
+      <ApolloProvider client={client}>
+        <div className="App">
+          <div className="ui container">
+            <MenuBar />
+          </div>
         </div>
-      </div>
+      </ApolloProvider>
     );
   }
 }
