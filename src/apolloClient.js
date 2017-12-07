@@ -3,6 +3,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+const { REACT_APP_GITHUB_API_KEY } = process.env;
 
 const httpLink = createHttpLink({
   uri: 'https://api.github.com/graphql',
@@ -10,7 +11,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = '4f581bfa9506cb9800549f8723d04552a476ca4d';
+  const token = REACT_APP_GITHUB_API_KEY;
   // return the headers to the context so httpLink can read them
   return {
     headers: {
