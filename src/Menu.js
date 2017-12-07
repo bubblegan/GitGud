@@ -12,7 +12,7 @@ export default class MenuBar extends Component {
   constructor(props){
     super(props);
   
-    this.state = { activeItem: 'Home' }
+    this.state = { activeItem: 'Search Repo' }
   }
 
   handleItemClick = (e, { name }) =>
@@ -25,11 +25,7 @@ export default class MenuBar extends Component {
       <Router>
       <div>
         <Menu pointing secondary>
-          <Menu.Item as={ Link } to='/home' name='Home' active={activeItem === 'Home'} onClick={this.handleItemClick} />
-          <Menu.Item as={ Link } to='/friends' name='Empty' active={activeItem === 'Empty'} onClick={this.handleItemClick} />
-          <Menu.Menu position='right'>
-            <Menu.Item name='Logout' active={activeItem === 'Logout'} onClick={this.handleItemClick} />
-          </Menu.Menu>
+          <Menu.Item as={ Link } to='/home' name='Search Repo' active={activeItem === 'Search Repo'} onClick={this.handleItemClick} />
         </Menu>
 
         <Segment>

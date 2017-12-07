@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 
+
 export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryString : String!){
     search(query: $queryString ,type : REPOSITORY, first: 20) {
       repositoryCount
@@ -12,6 +13,9 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           name
           url
           description
+          watchers{
+            totalCount
+          }
           stargazers {
             totalCount
           }
@@ -19,6 +23,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
             name
           }
           owner{
+            url
             login
             avatarUrl
           }
@@ -26,3 +31,4 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
       }
   }
   }`
+
