@@ -7,7 +7,7 @@ export default class ProfileSearch extends Component {
     super(props);
     this.state = {
       queryName: '',
-      queryString: '',
+      queryString: 'BubbleGan',
     }
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
