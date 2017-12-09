@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Dropdown, Button } from 'semantic-ui-react'
-import ResultListWithData from './components/RepoResultsList';
+import RepoResultListWithData from './components/RepoResultsList';
 
 import { LANGUAGES_OPTIONS , TOPIC_OPTIONS, STARS_OPTIONS } from './optionsKeyword';
 
@@ -54,7 +54,7 @@ export default class MainSearch extends Component {
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
-          <ResultListWithData queryString={this.state.queryString} />
+          <RepoResultListWithData queryString={this.state.queryString} />
         </div>
       </div>
     )

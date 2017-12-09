@@ -38,7 +38,7 @@ function ResultList({ loading, search }) {
   return (null);
 }
 
-const ResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
+const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
   {
     props: ({ data: { loading, search } }) => ({
       loading,
@@ -47,4 +47,4 @@ const ResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
     options: ({ queryString }) => ({ variables: { queryString } }),
   })(ResultList);
 
-export default ResultListWithData;
+export default RepoResultListWithData;
