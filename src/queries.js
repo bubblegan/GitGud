@@ -45,12 +45,15 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           followers{
             totalCount
           }
-          starredRepositories(first: 50){
+          starredRepositories(first: 80){
             totalCount
             nodes{
-              ... on Repository{
+              ... on Repository{                
                 name
-              }
+                primaryLanguage {
+                  name
+                }
+              }              
             }
           }
           repositories(first: 50, orderBy: {field: CREATED_AT, direction: DESC}){
