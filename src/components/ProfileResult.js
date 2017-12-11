@@ -50,6 +50,7 @@ function ProfileCard({ loading, search }) {
         </div>
       </div>
       <div className='ui column segment' style={{marginTop : 0 + '%'}}>
+      <h3>Starred Repos Language</h3>
       <Pie
         data={{
           labels: repoLanguageArray,

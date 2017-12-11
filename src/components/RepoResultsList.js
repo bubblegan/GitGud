@@ -7,7 +7,7 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function ResultList({ loading, search }) {
+function ResultList({ loading, search, loadMore }) {
   if (loading) {
     return <p> loading.... </p>;
   } else if (search) {
@@ -40,9 +40,26 @@ function ResultList({ loading, search }) {
 
 const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
   {
-    props: ({ data: { loading, search } }) => ({
+    props: ({ data: { loading, search, loadMore } }) => ({
       loading,
       search,
+      loadMore: () => ({
+        variables: { end: search.pageInfo.endCursor },
+        updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
+          const previousSearch = previousResult.search || {};
+          const currentSearch = fetchMoreResult.search || {};
+          const previousNodes = previousSearch.nodes || [];
+          const currentNodes = currentSearch.nodes || [];
+          return {
+            ...previousResult,
+            search: {
+              ...previousSearch,
+              nodes: [...previousNodes, ...currentNodes],
+              pageInfo: currentSearch.pageInfo,
+            },
+          };
+        }
+      })
     }),
     options: ({ queryString }) => ({ variables: { queryString } }),
   })(ResultList);
