@@ -1,21 +1,22 @@
 import React from 'react'
-import { SEARCH_REPO_WITH_LANGUAGES} from '../queries';
+import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
-
+import InfiniteScroll from 'react-infinite-scroller';
 
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function ResultList({ loading, search, loadMore }) {
+function ResultList({ loading, search, fetchMore }) {
   if (loading) {
     return <p> loading.... </p>;
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
       return (
+
         <div className='card' key={item.name}>
           <div className="content">
-          <img className="right floated mini ui image" src={item.owner.avatarUrl} alt="avatar"/>
+            <img className="right floated mini ui image" src={item.owner.avatarUrl} alt="avatar" />
             <a className="header" href={item.url} target="_blank">{item.name} </a>
             <div className="meta">
               <a href={item.owner.url} target="_blank" >{item.owner.login}</a>
@@ -32,7 +33,15 @@ function ResultList({ loading, search, loadMore }) {
       )
     });
     return (
-      <div className="ui cards">{nodeList}</div>
+      <InfiniteScroll
+        loadMore={fetchMore}
+        hasMore={search.pageInfo.hasNextPage}
+        loader={<p>Loading...</p>}
+        element={'div'}
+        className='ui cards'
+      >
+        {nodeList}
+      </InfiniteScroll>
     );
   }
   return (null);
@@ -40,28 +49,33 @@ function ResultList({ loading, search, loadMore }) {
 
 const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
   {
-    props: ({ data: { loading, search, loadMore } }) => ({
-      loading,
-      search,
-      loadMore: () => ({
-        variables: { end: search.pageInfo.endCursor },
-        updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
-          const previousSearch = previousResult.search || {};
-          const currentSearch = fetchMoreResult.search || {};
-          const previousNodes = previousSearch.nodes || [];
-          const currentNodes = currentSearch.nodes || [];
-          return {
-            ...previousResult,
-            search: {
-              ...previousSearch,
-              nodes: [...previousNodes, ...currentNodes],
-              pageInfo: currentSearch.pageInfo,
-            },
-          };
-        }
-      })
-    }),
     options: ({ queryString }) => ({ variables: { queryString } }),
+    props({ data: { loading, search, fetchMore } }) 
+    {
+      return{
+        loading,
+        search,
+        fetchMore(){
+          return fetchMore({
+            variables: { cursor: search.pageInfo.endCursor },
+            updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
+              const previousSearch = previousResult.search || {};
+              const currentSearch = fetchMoreResult.search || {};
+              const previousNodes = previousSearch.nodes || [];
+              const currentNodes = currentSearch.nodes || [];
+              return {
+                ...previousResult,
+                search: {
+                  ...previousSearch,
+                  nodes: [...previousNodes, ...currentNodes],
+                  pageInfo: currentSearch.pageInfo,
+                },
+              };
+            }
+          });
+        }
+      }
+    },
   })(ResultList);
 
 export default RepoResultListWithData;
