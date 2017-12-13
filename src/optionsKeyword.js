@@ -14,6 +14,9 @@ export const LANGUAGES_OPTIONS = [
 { text: 'PHP', value: 'PHP' },       
 { text: 'Shell', value: 'Shell' },        
 { text: 'C', value: 'C' },    
+{ text: 'Scala', value: 'Scala' },    
+{ text: 'Erlang', value: 'Erlang' },    
+{ text: 'Elixir', value: 'Elixir' },    
 
 ];
 
