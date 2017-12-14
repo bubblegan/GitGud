@@ -7,13 +7,23 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function ResultList({ loading, search, fetchMore }) {
+function ResultList({ loading, search, fetchMore, viewType }) {
   if (loading) {
     return <p> loading.... </p>;
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
+      let extraContent = null;
+      if(viewType === 'view1')
+      {
+        extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
+                         <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> </div> );
+      } 
+      else if(viewType === 'view2')
+      {
+        extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
+        <span className="right floated"> Created At {item.createdAt} </span> </div> );
+      }
       return (
-
         <div className='card' key={item.name}>
           <div className="content">
             <img className="right floated mini ui image" src={item.owner.avatarUrl} alt="avatar" />
@@ -25,9 +35,8 @@ function ResultList({ loading, search, fetchMore }) {
               <p>{item.description}</p>
             </div>
           </div>
-          <div className="extra content">
-            <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-            <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>
+          <div className="extra content">          
+             {extraContent}
           </div>
         </div>
       )
@@ -49,8 +58,8 @@ function ResultList({ loading, search, fetchMore }) {
 
 const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
   {
-    options: ({ queryString }) => ({ variables: { queryString } }),
-    props({ data: { loading, search, fetchMore } }) 
+    options: ({ queryString, viewType }) => ({ variables: { queryString } }),
+    props({ data: { loading, search, fetchMore }, viewType }) 
     {
       return{
         loading,

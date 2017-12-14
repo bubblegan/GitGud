@@ -13,12 +13,14 @@ export default class MainSearch extends Component {
       selectedTopics: [],
       minStars: 10000,
       queryString: '',
+      viewType: 'view1',
     };
 
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleChangeStars = this.handleChangeStars.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
     this.handleChangeTopics = this.handleChangeTopics.bind(this);
+    this.handleChangeView =  this.handleChangeView.bind(this);
   }
 
   handleSearchClick(e) {
@@ -43,6 +45,13 @@ export default class MainSearch extends Component {
     this.setState({ selectedTopics: value });
   }
 
+  handleChangeView(e, {value}){
+    if(this.state.viewType === 'view1')
+      this.setState({ viewType : 'view2'})
+    else if(this.state.viewType === 'view2')
+      this.setState({ viewType : 'view1'})
+  }
+
   render() {
     return (
       <div>
@@ -51,9 +60,10 @@ export default class MainSearch extends Component {
           <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeStars} />
           <Dropdown placeholder='Select Topics' multiple search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
+          <Button primary as='button' onClick={this.handleChangeView} style={{ marginLeft: 1 + 'em' }}> Change View </Button>
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
-          <RepoResultListWithData queryString={this.state.queryString} />
+          <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} />
         </div>
       </div>
     )
