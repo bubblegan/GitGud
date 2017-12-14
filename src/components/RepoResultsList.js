@@ -2,6 +2,7 @@ import React from 'react'
 import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
+import { Dimmer, Loader } from 'semantic-ui-react'
 import InfiniteScroll from 'react-infinite-scroller';
 
 const numberWithCommas = (x) => {
@@ -10,7 +11,9 @@ const numberWithCommas = (x) => {
 
 function ResultList({ loading, search, fetchMore, viewType }) {
   if (loading) {
-    return <p> loading.... </p>;
+    return (<Dimmer active inverted>
+      <Loader inverted>Loading</Loader>
+    </Dimmer>);
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
       let extraContent = null;
