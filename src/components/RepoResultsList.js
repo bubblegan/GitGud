@@ -14,15 +14,13 @@ function ResultList({ loading, search, fetchMore, viewType }) {
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
       let extraContent = null;
-      if(viewType === 'view1')
-      {
+      if (viewType === 'view1') {
         extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-                         <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> </div> );
-      } 
-      else if(viewType === 'view2')
-      {
+          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> </div>);
+      }
+      else if (viewType === 'view2') {
         extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-                        <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span> </div> );
+          <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span> </div>);
       }
       return (
         <div className='card' key={item.name}>
@@ -36,8 +34,8 @@ function ResultList({ loading, search, fetchMore, viewType }) {
               <p>{item.description}</p>
             </div>
           </div>
-          <div className="extra content">          
-             {extraContent}
+          <div className="extra content">
+            {extraContent}
           </div>
         </div>
       )
@@ -60,12 +58,11 @@ function ResultList({ loading, search, fetchMore, viewType }) {
 const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
   {
     options: ({ queryString, viewType }) => ({ variables: { queryString } }),
-    props({ data: { loading, search, fetchMore }, viewType }) 
-    {
-      return{
+    props({ data: { loading, search, fetchMore }, viewType }) {
+      return {
         loading,
         search,
-        fetchMore(){
+        fetchMore() {
           return fetchMore({
             variables: { cursor: search.pageInfo.endCursor },
             updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
