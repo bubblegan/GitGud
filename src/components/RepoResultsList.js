@@ -1,4 +1,5 @@
 import React from 'react'
+import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -21,7 +22,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
       else if(viewType === 'view2')
       {
         extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-        <span className="right floated"> Created At {item.createdAt} </span> </div> );
+                        <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span> </div> );
       }
       return (
         <div className='card' key={item.name}>
