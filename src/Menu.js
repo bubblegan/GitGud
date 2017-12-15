@@ -23,15 +23,15 @@ export default class MenuBar extends Component {
             <Menu.Item
               as={Link}
               to="/"
-              name="Search Repo"
-              active={activeItem === "Search Repo"}
+              name="Repo"
+              active={activeItem === "Repo"}
               onClick={this.handleItemClick}
             />
             <Menu.Item
               as={Link}
               to="/profile"
-              name="Search Profile"
-              active={activeItem === "Search Profile"}
+              name="Profile"
+              active={activeItem === "Profile"}
               onClick={this.handleItemClick}
             />
           </Menu>
