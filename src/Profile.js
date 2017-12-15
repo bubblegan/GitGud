@@ -22,7 +22,6 @@ export default class ProfileSearch extends Component {
     this.setState({ queryString: `${this.state.queryName}` });    
   }
 
-
   render() {
     return (
       <div>
