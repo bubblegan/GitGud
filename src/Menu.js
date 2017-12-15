@@ -26,14 +26,13 @@ export default class MenuBar extends Component {
       <Router>
       <div>
         <Menu pointing secondary>
-          <Menu.Item as={ Link } to='/home' name='Search Repo' active={activeItem === 'Search Repo'} onClick={this.handleItemClick} />
+          <Menu.Item as={ Link } to='/' name='Search Repo' active={activeItem === 'Search Repo'} onClick={this.handleItemClick} />
           <Menu.Item as={ Link } to='/profile' name='Search Profile' active={activeItem === 'Search Profile'} onClick={this.handleItemClick} />          
         </Menu>
 
         <Segment>
-          <Route path="/home" component={RepoSearch}/>
-          <Route path="/profile" component={ProfileSearch}/>
-          
+          <Route path="/" component={RepoSearch}/>
+          <Route path="/profile" component={ProfileSearch}/>          
         </Segment>
       </div>
       </Router>
