@@ -31,7 +31,7 @@ export default class MenuBar extends Component {
         </Menu>
 
         <Segment>
-          <Route path="/" component={RepoSearch}/>
+          <Route exact path="/" component={RepoSearch}/>
           <Route path="/profile" component={ProfileSearch}/>          
         </Segment>
       </div>
