@@ -58,6 +58,9 @@ export default class MainSearch extends Component {
   }
 
   render() {
+
+    const RepoResults = this.state.queryString ?   <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+
     return (
       <div>
         <div>
@@ -68,7 +71,7 @@ export default class MainSearch extends Component {
           <Button primary as='button' onClick={this.handleChangeView} style={{ marginLeft: 1 + 'em' }}> Change View </Button>
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
-          <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} />
+          {RepoResults}
         </div>
       </div>
     )
