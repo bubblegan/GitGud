@@ -20,7 +20,7 @@ export default class MainSearch extends Component {
     this.handleChangeStars = this.handleChangeStars.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
     this.handleChangeTopics = this.handleChangeTopics.bind(this);
-    this.handleChangeView =  this.handleChangeView.bind(this);
+    this.handleChangeView = this.handleChangeView.bind(this);
   }
 
   handleSearchClick(e) {
@@ -45,11 +45,16 @@ export default class MainSearch extends Component {
     this.setState({ selectedTopics: value });
   }
 
-  handleChangeView(e, {value}){
-    if(this.state.viewType === 'view1')
-      this.setState({ viewType : 'view2'})
-    else if(this.state.viewType === 'view2')
-      this.setState({ viewType : 'view1'})
+  handleChangeView(e, { value }) {
+
+    switch (this.state.viewType) {
+      case 'view1':
+        this.setState({ viewType: 'view2' })
+        break;
+      case 'view2':
+        this.setState({ viewType: 'view1' })
+        break;
+    }
   }
 
   render() {
