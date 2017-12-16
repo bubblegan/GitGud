@@ -8,7 +8,7 @@ export default class MenuBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeItem: "Search Repo" };
+    this.state = { activeItem: "Repo" };
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
