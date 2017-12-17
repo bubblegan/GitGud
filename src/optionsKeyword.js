@@ -1,7 +1,7 @@
 
 
 export const LANGUAGES_OPTIONS = [
-{ text: 'All', value: '' },
+{ text: 'All', value: 'All' },
 { text: 'Javascript', value: 'Javascript' },
 { text: 'Typescript', value: 'Typescript' },
 { text: 'Python', value: 'Python' },

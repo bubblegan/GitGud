@@ -35,6 +35,7 @@ export default class MainSearch extends Component {
     e.preventDefault();
     let topicQuery = '';
     let trendingQuery = '';
+    let languageQuery = '';
     let starsQuery = `stars:>${this.state.minStars}`;
 
     if (this.state.selectedTopics.length > 0) {
@@ -62,9 +63,13 @@ export default class MainSearch extends Component {
       }
       starsQuery = `stars:>${trendingStarWithAtLeast}`;
     }
+
+    if(this.state.selectedLanguage !== 'All') 
+      languageQuery = `language:${this.state.selectedLanguage}`;
+
     this.setState({
       queryString: `
-        language:${this.state.selectedLanguage} 
+        ${languageQuery}
         ${topicQuery} 
         ${trendingQuery}
         sort:stars 
@@ -86,7 +91,7 @@ export default class MainSearch extends Component {
   }
 
   handleChangeTrending(e, { value }) {
-    this.setState({ trendingSince: value });
+      this.setState({ trendingSince: value });
   }
 
   handleChangeView(e, { value }) {
