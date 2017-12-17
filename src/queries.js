@@ -35,7 +35,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
   }
   }`
 
-  export const SEARCH_PROFILE_WITH_NAME = gql` query ProfileSearch($queryString : String!){
+export const SEARCH_PROFILE_WITH_NAME = gql` query ProfileSearch($queryString : String!){
     search(query: $queryString ,type : USER, first: 1) {
       nodes {
         ... on User {
@@ -53,6 +53,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
             nodes{
               ... on Repository{                
                 name
+                createdAt
                 primaryLanguage {
                   name
                 }
@@ -88,4 +89,16 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
       }
     }
   }`
-  
+
+export const PROFILE_LIMIT_DETAIL = gql` query {
+    viewer {
+      login
+    }
+    rateLimit {
+      limit
+      cost
+      remaining
+      resetAt
+    }
+  }
+  `;
