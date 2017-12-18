@@ -41,8 +41,7 @@ function ProfileCard({ loading, search }) {
     let repoLanguageCount = [];
     for (let RepoLanguage in starredRepoList) {
       repoLanguageCount.push(starredRepoList[RepoLanguage].length)
-      if (RepoLanguage === 'undefined')
-        RepoLanguage = 'Others'
+      if (RepoLanguage !== 'undefined')
         repoLanguageArray.push(RepoLanguage);
     }
 
@@ -52,11 +51,9 @@ function ProfileCard({ loading, search }) {
     let personalRepoLanguageCount = [];
     for (let RepoLanguage in personalRepoList) {
       personalRepoLanguageCount.push(personalRepoList[RepoLanguage].length)
-      if (RepoLanguage === 'undefined')
-        RepoLanguage = 'Others'
+      if (RepoLanguage !== 'undefined')
         personalRepoLanguageArray.push(RepoLanguage);
     }
-
 
     return (
       <div className="ui two column stackable grid">
