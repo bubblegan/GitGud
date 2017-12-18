@@ -60,7 +60,7 @@ export const SEARCH_PROFILE_WITH_NAME = gql` query ProfileSearch($queryString : 
               }              
             }
           }
-          repositories(first: 50, orderBy: {field: CREATED_AT, direction: DESC}){
+          repositories(first: 80, orderBy: {field: CREATED_AT, direction: DESC}){
             totalCount
             nodes {
               ... on Repository{
