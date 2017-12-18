@@ -17,6 +17,7 @@ export const LANGUAGES_OPTIONS = [
 { text: 'Scala', value: 'Scala' },    
 { text: 'Erlang', value: 'Erlang' },    
 { text: 'Elixir', value: 'Elixir' },    
+{ text: 'Vue', value: 'Vue' },    
 
 ];
 

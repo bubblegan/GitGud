@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pie } from 'react-chartjs-2';
+import { Pie ,Doughnut} from 'react-chartjs-2';
 import { SEARCH_PROFILE_WITH_NAME } from '../queries';
 import { graphql } from 'react-apollo';
 import { groupBy } from 'lodash';
@@ -49,9 +49,9 @@ function ProfileCard({ loading, search }) {
           </div>
         </div>
       </div>
-      <div className='ui column segment' style={{marginTop : 0 + '%'}}>
-      <h3>Starred Repos Language</h3>
-      <Pie
+      <div className='ui column segment' style={{marginTop : 0 + '%', paddingTop: 0 + '%'}}>
+      <h3 style={{marginTop : 15 + 'px'}}>Starred Repos Language</h3>
+      <Doughnut
         data={{
           labels: repoLanguageArray,
           datasets: [{
