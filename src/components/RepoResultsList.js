@@ -2,7 +2,7 @@ import React from 'react'
 import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
-import { Dimmer, Loader } from 'semantic-ui-react'
+import { Dimmer, Loader, Label } from 'semantic-ui-react'
 import InfiniteScroll from 'react-infinite-scroller';
 
 const numberWithCommas = (x) => {
@@ -17,6 +17,16 @@ function ResultList({ loading, search, fetchMore, viewType }) {
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
       let extraContent = null;
+      let topicLabels = null;
+
+      //Get Topic
+      if (item.repositoryTopics.nodes) {
+        topicLabels = item.repositoryTopics.nodes.map((topic) => {
+          return <Label color='teal' style={{ margin: 2 + 'px' }} key={topic.topic.id} horizontal> {topic.topic.name}</Label>;
+        });
+      }
+
+      //Change Views
       if (viewType === 'view1') {
         extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
           <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> </div>);
@@ -25,6 +35,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
         extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
           <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span> </div>);
       }
+
       return (
         <div className='card' key={item.name}>
           <div className="content">
@@ -35,6 +46,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
             </div>
             <div className="description">
               <p>{item.description}</p>
+              {topicLabels}
             </div>
           </div>
           <div className="extra content">

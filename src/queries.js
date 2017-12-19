@@ -22,6 +22,14 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           stargazers {
             totalCount
           }
+          repositoryTopics(first:5){
+            nodes{
+              topic{
+                name
+                id
+              }
+            }
+          }
           primaryLanguage {
             name
           }
