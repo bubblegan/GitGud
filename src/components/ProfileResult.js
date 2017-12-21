@@ -6,8 +6,8 @@ import { groupBy } from 'lodash';
 
 
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+const shuffle = (array) => {
+  let currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -31,7 +31,6 @@ function ProfileCard({ loading, search }) {
     return <p> loading.... </p>;
   } else if (search.nodes.length > 0) {
 
-
     const item = search.nodes[0];
     let default_colors = shuffle(['#AB7967', '#C594C5', '#6699CC', '#5FB3B3', '#99C794', '#FAC863', '#F99157', '#EC5f67', '#D8DEE9', '#CDD3DE', '#C0C5CE']);
     
@@ -41,8 +40,9 @@ function ProfileCard({ loading, search }) {
     let repoLanguageCount = [];
     for (let RepoLanguage in starredRepoList) {
       repoLanguageCount.push(starredRepoList[RepoLanguage].length)
-      if (RepoLanguage !== 'undefined')
-        repoLanguageArray.push(RepoLanguage);
+      if (RepoLanguage !== 'undefined'){
+        repoLanguageArray.push(RepoLanguage);        
+      }
     }
 
     //Personal Repos
@@ -51,8 +51,9 @@ function ProfileCard({ loading, search }) {
     let personalRepoLanguageCount = [];
     for (let RepoLanguage in personalRepoList) {
       personalRepoLanguageCount.push(personalRepoList[RepoLanguage].length)
-      if (RepoLanguage !== 'undefined')
-        personalRepoLanguageArray.push(RepoLanguage);
+      if (RepoLanguage !== 'undefined'){
+        personalRepoLanguageArray.push(RepoLanguage);        
+      }
     }
 
     return (
