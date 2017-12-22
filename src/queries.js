@@ -68,6 +68,12 @@ export const SEARCH_PROFILE_WITH_NAME = gql` query ProfileSearch($queryString : 
               }              
             }
           }
+          forkedRepo:repositories(isFork:true){
+            totalCount 
+           }
+          ownedRepo:repositories(isFork:false){
+            totalCount 
+           }
           repositories(first: 80, orderBy: {field: CREATED_AT, direction: DESC}){
             totalCount
             nodes {

@@ -1,17 +1,16 @@
-import React from 'react'
-import { Doughnut } from 'react-chartjs-2';
-import { SEARCH_PROFILE_WITH_NAME } from '../queries';
-import { graphql } from 'react-apollo';
-import { groupBy } from 'lodash';
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import { SEARCH_PROFILE_WITH_NAME } from "../queries";
+import { graphql } from "react-apollo";
+import { groupBy } from "lodash";
 
-
-
-const shuffle = (array) => {
-  let currentIndex = array.length, temporaryValue, randomIndex;
+const shuffle = array => {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -23,114 +22,197 @@ const shuffle = (array) => {
   }
 
   return array;
-}
+};
+
+let default_colors = shuffle([
+  "#AB7967",
+  "#C594C5",
+  "#6699CC",
+  "#5FB3B3",
+  "#99C794",
+  "#FAC863",
+  "#F99157",
+  "#EC5f67",
+  "#D8DEE9",
+  "#CDD3DE",
+  "#C0C5CE"
+]);
+
+const ProfileStats = (value, label) => {
+  return (
+    <div className="ui statistic">
+      <div className="value">{value}</div>
+      <div className="label">{label}</div>
+    </div>
+  );
+};
+
 
 
 function ProfileCard({ loading, search }) {
   if (loading) {
     return <p> loading.... </p>;
   } else if (search.nodes.length > 0) {
-
     const item = search.nodes[0];
-    let default_colors = shuffle(['#AB7967', '#C594C5', '#6699CC', '#5FB3B3', '#99C794', '#FAC863', '#F99157', '#EC5f67', '#D8DEE9', '#CDD3DE', '#C0C5CE']);
+
     
     //Gonna Refactor out - starred Repos
-    const starredRepoList = groupBy(item.starredRepositories.nodes, "primaryLanguage.name");
+    const starredRepoList = groupBy(
+      item.starredRepositories.nodes,
+      "primaryLanguage.name"
+    );
     let repoLanguageArray = [];
     let repoLanguageCount = [];
     for (let RepoLanguage in starredRepoList) {
-      repoLanguageCount.push(starredRepoList[RepoLanguage].length)
-      if (RepoLanguage !== 'undefined'){
-        repoLanguageArray.push(RepoLanguage);        
+      repoLanguageCount.push(starredRepoList[RepoLanguage].length);
+      if (RepoLanguage !== "undefined") {
+        repoLanguageArray.push(RepoLanguage);
       }
     }
 
     //Personal Repos
-    const personalRepoList = groupBy(item.repositories.nodes, "primaryLanguage.name");
+    const personalRepoList = groupBy(
+      item.repositories.nodes,
+      "primaryLanguage.name"
+    );
     let personalRepoLanguageArray = [];
     let personalRepoLanguageCount = [];
     for (let RepoLanguage in personalRepoList) {
-      personalRepoLanguageCount.push(personalRepoList[RepoLanguage].length)
-      if (RepoLanguage !== 'undefined'){
-        personalRepoLanguageArray.push(RepoLanguage);        
+      personalRepoLanguageCount.push(personalRepoList[RepoLanguage].length);
+      if (RepoLanguage !== "undefined") {
+        personalRepoLanguageArray.push(RepoLanguage);
       }
     }
 
+    
+    //Stats
+    const profileStats = [
+      {
+        value: item.forkedRepo.totalCount,
+        label: "Forked Repo"
+      },
+      {
+        value: item.ownedRepo.totalCount,
+        label: "Owned Repo"
+      },
+      {
+        value: item.starredRepositories.totalCount,
+        label: "Starred Repo"
+      },
+      {
+        value: repoLanguageCount.length,
+        label: "Language Used"
+      }
+    ];
+    const ProfileStatsWithData =  profileStats.map((stats) => {
+      return(
+        <div className="column" key={stats.label}>
+            {ProfileStats(stats.value, stats.label)}
+        </div>
+      ) 
+    })
+
     return (
-      <div className="ui two column stackable grid">
-        <div className="four wide column">
-          <div className="ui cards">
-            <div className="ui card">
-              <div className="image" >
-                <img src={item.avatarUrl} alt='profile pic' />
-              </div>
-              <div className="content">
-                <a className="header">{item.name}</a>
-                <div className="meta">
-                  <span className="date">{item.email}</span>
+      <div>
+        <div className="ui stackable grid">
+          {/* Main Profile Section*/}
+          <div className="four wide column">
+            <div className="ui cards">
+              <div className="ui card">
+                <div className="image">
+                  <img src={item.avatarUrl} alt="profile pic" />
                 </div>
-                <div className="description">
-                  {item.bio}
+                <div className="content">
+                  <a className="header">{item.name}</a>
+                  <div className="meta">
+                    <span className="date">{item.email}</span>
+                  </div>
+                  <div className="description">{item.bio}</div>
+                </div>
+                <div className="extra content">
+                  <a>
+                    <i className="user icon" />
+                    {item.followers.totalCount} Followers
+                  </a>
                 </div>
               </div>
-              <div className="extra content">
-                <a>
-                  <i className="user icon"></i>
-                  {item.followers.totalCount} Followers
-          </a>
+            </div>
+          </div>
+          {/*Statistic Section*/}
+          <div className="twelve wide column">
+            <div className="ui stackable grid">
+              {/*Top Statistic Row*/}
+              <div className="four column row">
+                {ProfileStatsWithData}
+              </div>
+
+              {/*Second Statistic Row*/}
+              <div className="four column row">                
               </div>
             </div>
           </div>
         </div>
-        <div className="twelve wide column">
+
+        {/* Chart Section*/}
+        <div className="ten wide column" style={{ marginTop: 1 + "%" }}>
           <div className="ui two column stackable grid">
-            <div className='column' style={{ marginTop: 1 + '%', paddingTop: 0 + '%' }}>
-              <h3 style={{ marginTop: 2 + 'px' }}>Starred Repos Language</h3>
+            <div
+              className="column"
+              style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
+            >
+              <h3 style={{ marginTop: 2 + "px" }}>Starred Repos Language</h3>
               <Doughnut
                 data={{
                   labels: repoLanguageArray,
-                  datasets: [{
-                    data: repoLanguageCount,
-                    backgroundColor: default_colors,
-                    hoverBackgroundColor: default_colors
-                  }],
+                  datasets: [
+                    {
+                      data: repoLanguageCount,
+                      backgroundColor: default_colors,
+                      hoverBackgroundColor: default_colors
+                    }
+                  ]
                 }}
                 legend={{
-                  position: 'left',
+                  position: "left"
                 }}
               />
             </div>
-            <div className='column' style={{ marginTop: 1 + '%', paddingTop: 0 + '%' }}>
-              <h3 style={{ marginTop: 0 + 'px' }}>Personal Repos</h3>
+
+            <div
+              className="column"
+              style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
+            >
+              <h3 style={{ marginTop: 0 + "px" }}>Personal Repos</h3>
               <Doughnut
                 data={{
                   labels: personalRepoLanguageArray,
-                  datasets: [{
-                    data: personalRepoLanguageCount,
-                    backgroundColor: default_colors,
-                    hoverBackgroundColor: default_colors
-                  }],
+                  datasets: [
+                    {
+                      data: personalRepoLanguageCount,
+                      backgroundColor: default_colors,
+                      hoverBackgroundColor: default_colors
+                    }
+                  ]
                 }}
                 legend={{
-                  position: 'left',
+                  position: "left"
                 }}
               />
             </div>
-          </div>          
+          </div>
         </div>
       </div>
-    )
+    );
   }
-  return (null);
+  return null;
 }
 
-const ResultListWithData = graphql(SEARCH_PROFILE_WITH_NAME,
-  {
-    props: ({ data: { loading, search } }) => ({
-      loading,
-      search,
-    }),
-    options: ({ queryString }) => ({ variables: { queryString } }),
-  })(ProfileCard);
+const ResultListWithData = graphql(SEARCH_PROFILE_WITH_NAME, {
+  props: ({ data: { loading, search } }) => ({
+    loading,
+    search
+  }),
+  options: ({ queryString }) => ({ variables: { queryString } })
+})(ProfileCard);
 
 export default ResultListWithData;

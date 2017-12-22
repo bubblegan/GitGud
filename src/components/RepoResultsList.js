@@ -28,12 +28,20 @@ function ResultList({ loading, search, fetchMore, viewType }) {
 
       //Change Views
       if (viewType === 'view1') {
-        extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> </div>);
+        extraContent = (
+          <div>
+            <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
+            <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> 
+          </div>
+        );
       }
       else if (viewType === 'view2') {
-        extraContent = (<div> <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-          <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span> </div>);
+        extraContent = (
+          <div> 
+            <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
+            <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
+          </div>
+        );
       }
 
       return (
