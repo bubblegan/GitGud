@@ -56,6 +56,9 @@ export const SEARCH_PROFILE_WITH_NAME = gql` query ProfileSearch($queryString : 
           followers{
             totalCount
           }
+          following{
+            totalCount
+          }
           starredRepositories(first: 80){
             totalCount
             nodes{

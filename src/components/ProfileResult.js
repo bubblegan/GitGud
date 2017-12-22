@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { SEARCH_PROFILE_WITH_NAME } from "../queries";
 import { graphql } from "react-apollo";
 import { groupBy } from "lodash";
+import { Statistic } from "semantic-ui-react";
 
 const shuffle = array => {
   let currentIndex = array.length,
@@ -40,14 +41,12 @@ let default_colors = shuffle([
 
 const ProfileStats = (value, label) => {
   return (
-    <div className="ui statistic">
-      <div className="value">{value}</div>
-      <div className="label">{label}</div>
-    </div>
+    <Statistic color="violet">
+      <Statistic.Value>{value}</Statistic.Value>
+      <Statistic.Label>{label}</Statistic.Label>
+    </Statistic>
   );
 };
-
-
 
 function ProfileCard({ loading, search }) {
   if (loading) {
@@ -55,7 +54,6 @@ function ProfileCard({ loading, search }) {
   } else if (search.nodes.length > 0) {
     const item = search.nodes[0];
 
-    
     //Gonna Refactor out - starred Repos
     const starredRepoList = groupBy(
       item.starredRepositories.nodes,
@@ -84,7 +82,6 @@ function ProfileCard({ loading, search }) {
       }
     }
 
-    
     //Stats
     const profileStats = [
       {
@@ -104,19 +101,19 @@ function ProfileCard({ loading, search }) {
         label: "Language Used"
       }
     ];
-    const ProfileStatsWithData =  profileStats.map((stats) => {
-      return(
+    const ProfileStatsWithData = profileStats.map(stats => {
+      return (
         <div className="column" key={stats.label}>
-            {ProfileStats(stats.value, stats.label)}
+          {ProfileStats(stats.value, stats.label)}
         </div>
-      ) 
-    })
+      );
+    });
 
     return (
       <div>
         <div className="ui stackable grid">
           {/* Main Profile Section*/}
-          <div className="four wide column">
+          <div className="five wide column">
             <div className="ui cards">
               <div className="ui card">
                 <div className="image">
@@ -130,25 +127,26 @@ function ProfileCard({ loading, search }) {
                   <div className="description">{item.bio}</div>
                 </div>
                 <div className="extra content">
-                  <a>
+                  <span>
                     <i className="user icon" />
                     {item.followers.totalCount} Followers
-                  </a>
+                  </span>
+                  <span  className="right floated">
+                    <i className="user icon" />
+                    {item.following.totalCount} Following
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           {/*Statistic Section*/}
-          <div className="twelve wide column">
+          <div className="eleven wide column">
             <div className="ui stackable grid">
               {/*Top Statistic Row*/}
-              <div className="four column row">
-                {ProfileStatsWithData}
-              </div>
+              <div className="four column row">{ProfileStatsWithData}</div>
 
               {/*Second Statistic Row*/}
-              <div className="four column row">                
-              </div>
+              <div className="four column row" />
             </div>
           </div>
         </div>
