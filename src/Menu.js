@@ -48,10 +48,9 @@ export default class MenuBar extends Component {
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
-
+  
   handleOpenProfileTab(e, { value }) {
-
+    //TODO - Refresh the rate limit
   }
 
   render() {

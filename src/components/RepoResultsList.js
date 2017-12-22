@@ -11,7 +11,8 @@ const numberWithCommas = (x) => {
 
 function ResultList({ loading, search, fetchMore, viewType }) {
   if (loading) {
-    return (<Dimmer active inverted>
+    return (
+    <Dimmer active inverted>
       <Loader inverted>Loading</Loader>
     </Dimmer>);
   } else if (search) {
