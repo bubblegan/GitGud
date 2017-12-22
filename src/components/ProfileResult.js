@@ -113,7 +113,7 @@ function ProfileCard({ loading, search }) {
       <div>
         <div className="ui stackable grid">
           {/* Main Profile Section*/}
-          <div className="five wide column">
+          <div className="four wide column">
             <div className="ui cards">
               <div className="ui card">
                 <div className="image">
@@ -131,7 +131,7 @@ function ProfileCard({ loading, search }) {
                     <i className="user icon" />
                     {item.followers.totalCount} Followers
                   </span>
-                  <span  className="right floated">
+                  <span className="right floated">
                     <i className="user icon" />
                     {item.following.totalCount} Following
                   </span>
@@ -139,66 +139,65 @@ function ProfileCard({ loading, search }) {
               </div>
             </div>
           </div>
+          
           {/*Statistic Section*/}
-          <div className="eleven wide column">
+          <div className="twelve wide column">
             <div className="ui stackable grid">
-              {/*Top Statistic Row*/}
+              {/*Statistic Row*/}
               <div className="four column row">{ProfileStatsWithData}</div>
+              
+              {/*Chart Section*/}              
+              <div className="two column row"   style={{ marginTop: 2 + "%"}}>
+                <div
+                  className="column"
+                  style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
+                >
+                  <h3 style={{ marginTop: 2 + "px" }}>
+                    Starred Repos Language
+                  </h3>
+                  <Doughnut
+                    data={{
+                      labels: repoLanguageArray,
+                      datasets: [
+                        {
+                          data: repoLanguageCount,
+                          backgroundColor: default_colors,
+                          hoverBackgroundColor: default_colors
+                        }
+                      ]
+                    }}
+                    legend={{
+                      position: "left"
+                    }}
+                  />
+                </div>
 
-              {/*Second Statistic Row*/}
-              <div className="four column row" />
+                <div
+                  className="column"
+                  style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
+                >
+                  <h3 style={{ marginTop: 0 + "px" }}>Personal Repos</h3>
+                  <Doughnut
+                    data={{
+                      labels: personalRepoLanguageArray,
+                      datasets: [
+                        {
+                          data: personalRepoLanguageCount,
+                          backgroundColor: default_colors,
+                          hoverBackgroundColor: default_colors
+                        }
+                      ]
+                    }}
+                    legend={{
+                      position: "left"
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Chart Section*/}
-        <div className="ten wide column" style={{ marginTop: 1 + "%" }}>
-          <div className="ui two column stackable grid">
-            <div
-              className="column"
-              style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
-            >
-              <h3 style={{ marginTop: 2 + "px" }}>Starred Repos Language</h3>
-              <Doughnut
-                data={{
-                  labels: repoLanguageArray,
-                  datasets: [
-                    {
-                      data: repoLanguageCount,
-                      backgroundColor: default_colors,
-                      hoverBackgroundColor: default_colors
-                    }
-                  ]
-                }}
-                legend={{
-                  position: "left"
-                }}
-              />
-            </div>
-
-            <div
-              className="column"
-              style={{ marginTop: 1 + "%", paddingTop: 0 + "%" }}
-            >
-              <h3 style={{ marginTop: 0 + "px" }}>Personal Repos</h3>
-              <Doughnut
-                data={{
-                  labels: personalRepoLanguageArray,
-                  datasets: [
-                    {
-                      data: personalRepoLanguageCount,
-                      backgroundColor: default_colors,
-                      hoverBackgroundColor: default_colors
-                    }
-                  ]
-                }}
-                legend={{
-                  position: "left"
-                }}
-              />
-            </div>
-          </div>
-        </div>
       </div>
     );
   }
