@@ -20,7 +20,8 @@ export const LANGUAGES_OPTIONS = [
 { text: 'Erlang', value: 'Erlang' },    
 { text: 'Elixir', value: 'Elixir' },    
 { text: 'Vue', value: 'Vue' },    
-
+{ text: 'Objective-C', value: 'Objective-C'},
+{ text: 'Swift' , value: 'Swift'}
 ];
 
 export const STARS_OPTIONS = [{ text: '10,000 Stars', value: '10000' },
