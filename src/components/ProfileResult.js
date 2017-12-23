@@ -120,7 +120,7 @@ function ProfileCard({ loading, search }) {
                   <img src={item.avatarUrl} alt="profile pic" />
                 </div>
                 <div className="content">
-                  <a className="header">{item.name}</a>
+                  <a className="header" href={item.url} target="_blank">{item.name}</a>
                   <div className="meta">
                     <span className="date">{item.email}</span>
                   </div>

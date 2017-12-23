@@ -45,14 +45,14 @@ export default class MainSearch extends Component {
     if (this.state.trendingSince) {
       let today = new Date();
       let trendingStarWithAtLeast = 100;
-      
+
       switch (this.state.trendingSince) {
         case 'month':
           topicQuery = 'created:>' + Format(StartOfMonth(today), 'YYYY-MM-DD');
           break;
         case 'quater':
           topicQuery = 'created:>' + Format(StartOfQuarter(today), 'YYYY-MM-DD');
-          trendingStarWithAtLeast = 200          
+          trendingStarWithAtLeast = 200
           break;
         case 'year':
           topicQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
@@ -64,7 +64,7 @@ export default class MainSearch extends Component {
       starsQuery = `stars:>${trendingStarWithAtLeast}`;
     }
 
-    if(this.state.selectedLanguage !== 'All') 
+    if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
 
     this.setState({
@@ -91,7 +91,7 @@ export default class MainSearch extends Component {
   }
 
   handleChangeTrending(e, { value }) {
-      this.setState({ trendingSince: value });
+    this.setState({ trendingSince: value });
   }
 
   handleChangeView(e, { value }) {
