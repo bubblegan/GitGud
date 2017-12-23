@@ -3,21 +3,68 @@ import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
 import { Dimmer, Loader, Label } from 'semantic-ui-react'
+import { VIEW_TYPE_WATCH, VIEW_TYPE_CREATED_AT, VIEW_TYPE_LAST_UPDATE, VIEW_TYPE_FORK, VIEW_TYPE_ISSUE } from '../optionsKeyword';
+
 import InfiniteScroll from 'react-infinite-scroller';
 
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const extraContentGenerator = (viewType , item) => {
+
+  const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span> ;
+  
+  if (viewType === VIEW_TYPE_WATCH) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_CREATED_AT) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_LAST_UPDATE) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> Last Update At {format((item.pushedAt), "MMM YYYY")} </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_FORK) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Fork </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_ISSUE) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issue </span>
+      </div>
+    );
+  }
+}
+
 function ResultList({ loading, search, fetchMore, viewType }) {
   if (loading) {
     return (
-    <Dimmer active inverted>
-      <Loader inverted>Loading</Loader>
-    </Dimmer>);
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>);
   } else if (search) {
     const nodeList = search.nodes.map((item) => {
-      let extraContent = null;
       let topicLabels = null;
 
       //Get Topic
@@ -28,22 +75,8 @@ function ResultList({ loading, search, fetchMore, viewType }) {
       }
 
       //Change Views
-      if (viewType === 'view1') {
-        extraContent = (
-          <div>
-            <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-            <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span> 
-          </div>
-        );
-      }
-      else if (viewType === 'view2') {
-        extraContent = (
-          <div> 
-            <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>
-            <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
-          </div>
-        );
-      }
+      let extraContentView = extraContentGenerator(viewType,item);
+
 
       return (
         <div className='card' key={item.name}>
@@ -59,7 +92,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
             </div>
           </div>
           <div className="extra content">
-            {extraContent}
+            {extraContentView}
           </div>
         </div>
       )

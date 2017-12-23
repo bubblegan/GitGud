@@ -8,7 +8,7 @@ import Format from 'date-fns/format'
 import { Dropdown, Button } from 'semantic-ui-react'
 import RepoResultListWithData from './components/RepoResultsList';
 
-import { LANGUAGES_OPTIONS, TOPIC_OPTIONS, STARS_OPTIONS, TRENDING_OPTION } from './optionsKeyword';
+import { LANGUAGES_OPTIONS, TOPIC_OPTIONS, STARS_OPTIONS, TRENDING_OPTION, VIEW_OPTION,VIEW_TYPE_FORK } from './optionsKeyword';
 
 
 export default class MainSearch extends Component {
@@ -20,7 +20,7 @@ export default class MainSearch extends Component {
       trendingSince: '',
       minStars: 10000,
       queryString: '',
-      viewType: 'view1',
+      viewType: VIEW_TYPE_FORK, //default
     };
 
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -95,17 +95,7 @@ export default class MainSearch extends Component {
   }
 
   handleChangeView(e, { value }) {
-
-    switch (this.state.viewType) {
-      case 'view1':
-        this.setState({ viewType: 'view2' })
-        break;
-      case 'view2':
-        this.setState({ viewType: 'view1' })
-        break;
-      default:
-        break;
-    }
+    this.setState({ viewType: value })
   }
 
   render() {
@@ -120,7 +110,7 @@ export default class MainSearch extends Component {
           <Dropdown placeholder='Trending!' search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
           <Dropdown placeholder='Select Topics' multiple search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
-          <Button primary as='button' onClick={this.handleChangeView} style={{ marginLeft: 1 + 'em' }}> Change View </Button>
+          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}

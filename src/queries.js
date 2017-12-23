@@ -16,6 +16,10 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           description
           createdAt
           pushedAt
+          issues{
+            totalCount
+          }
+          forkCount
           watchers{
             totalCount
           }

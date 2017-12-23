@@ -1,27 +1,27 @@
 
 
 export const LANGUAGES_OPTIONS = [
-{ text: 'All', value: 'All' },
-{ text: 'Javascript', value: 'Javascript' },
-{ text: 'Typescript', value: 'Typescript' },
-{ text: 'Python', value: 'Python' },
-{ text: 'C#', value: 'C#' },
-{ text: 'Ruby', value: 'Ruby' },
-{ text: 'HTML', value: 'HTML' },
-{ text: 'CSS', value: 'CSS' },
-{ text: 'Golang', value: 'Golang' },        
-{ text: 'Java', value: 'Java' },  
-{ text: 'PHP', value: 'PHP' },       
-{ text: 'Shell', value: 'Shell' },        
-{ text: 'C', value: 'C' },    
-{ text: 'C++', value: 'C++' },
-{ text: 'Clojure', value: 'Clojure' },    
-{ text: 'Scala', value: 'Scala' },    
-{ text: 'Erlang', value: 'Erlang' },    
-{ text: 'Elixir', value: 'Elixir' },    
-{ text: 'Vue', value: 'Vue' },    
-{ text: 'Objective-C', value: 'Objective-C'},
-{ text: 'Swift' , value: 'Swift'}
+    { text: 'All', value: 'All' },
+    { text: 'Javascript', value: 'Javascript' },
+    { text: 'Typescript', value: 'Typescript' },
+    { text: 'Python', value: 'Python' },
+    { text: 'C#', value: 'C#' },
+    { text: 'Ruby', value: 'Ruby' },
+    { text: 'HTML', value: 'HTML' },
+    { text: 'CSS', value: 'CSS' },
+    { text: 'Golang', value: 'Golang' },
+    { text: 'Java', value: 'Java' },
+    { text: 'PHP', value: 'PHP' },
+    { text: 'Shell', value: 'Shell' },
+    { text: 'C', value: 'C' },
+    { text: 'C++', value: 'C++' },
+    { text: 'Clojure', value: 'Clojure' },
+    { text: 'Scala', value: 'Scala' },
+    { text: 'Erlang', value: 'Erlang' },
+    { text: 'Elixir', value: 'Elixir' },
+    { text: 'Vue', value: 'Vue' },
+    { text: 'Objective-C', value: 'Objective-C' },
+    { text: 'Swift', value: 'Swift' }
 ];
 
 export const STARS_OPTIONS = [{ text: '10,000 Stars', value: '10000' },
@@ -32,20 +32,34 @@ export const STARS_OPTIONS = [{ text: '10,000 Stars', value: '10000' },
 ];
 
 export const TOPIC_OPTIONS = [
-{ text: 'Testing', value: 'Testing' },
-{ text: 'Frontend', value: 'Frontend' },
-{ text: 'Machine Learning', value: 'Machine Learning' },
-{ text: 'React', value: 'React' },
-{ text: 'Angular', value: 'Angular' },
-{ text: 'Vue', value: 'Vue' },
-{ text: 'Ui', value: 'Ui' },
-{ text: 'Library', value: 'Library' },
+    { text: 'Testing', value: 'Testing' },
+    { text: 'Frontend', value: 'Frontend' },
+    { text: 'Machine Learning', value: 'Machine Learning' },
+    { text: 'React', value: 'React' },
+    { text: 'Angular', value: 'Angular' },
+    { text: 'Vue', value: 'Vue' },
+    { text: 'Ui', value: 'Ui' },
+    { text: 'Library', value: 'Library' },
 ];
 
 export const TRENDING_OPTION = [
-    { text: 'Non', value: '' },    
+    { text: 'Non', value: '' },
     { text: 'Trending This Month', value: 'month' },
     { text: 'Trending This Quater', value: 'quater' },
     { text: 'Trending This Year', value: 'year' },
-    ];
-    
+];
+
+export const VIEW_TYPE_FORK = "Total Fork";
+export const VIEW_TYPE_LAST_UPDATE = "Last Update";
+export const VIEW_TYPE_CREATED_AT = "Create At";
+export const VIEW_TYPE_WATCH = "Total Watchers";
+export const VIEW_TYPE_ISSUE = "Total Issues";
+
+
+export const VIEW_OPTION = [
+    { text: VIEW_TYPE_FORK, value: VIEW_TYPE_FORK },
+    { text: VIEW_TYPE_LAST_UPDATE, value: VIEW_TYPE_LAST_UPDATE },
+    { text: VIEW_TYPE_CREATED_AT, value: VIEW_TYPE_CREATED_AT },
+    { text: VIEW_TYPE_WATCH, value: VIEW_TYPE_WATCH },
+    { text: VIEW_TYPE_ISSUE, value: VIEW_TYPE_ISSUE}
+]
