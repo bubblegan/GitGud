@@ -5,7 +5,7 @@ import StartOfQuarter from 'date-fns/start_of_quarter'
 import StartOfYear from 'date-fns/start_of_year'
 import Format from 'date-fns/format'
 
-import { Dropdown, Button } from 'semantic-ui-react'
+import { Dropdown, Button, Input } from 'semantic-ui-react'
 import RepoResultListWithData from './components/RepoResultsList';
 
 import { LANGUAGES_OPTIONS, TOPIC_OPTIONS, STARS_OPTIONS, TRENDING_OPTION, VIEW_OPTION,VIEW_TYPE_FORK } from './optionsKeyword';
@@ -20,7 +20,8 @@ export default class MainSearch extends Component {
       trendingSince: '',
       minStars: 10000,
       queryString: '',
-      viewType: VIEW_TYPE_FORK, //default
+      viewType: VIEW_TYPE_FORK, 
+      additionalInfo: '',
     };
 
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -29,6 +30,7 @@ export default class MainSearch extends Component {
     this.handleChangeTopics = this.handleChangeTopics.bind(this);
     this.handleChangeView = this.handleChangeView.bind(this);
     this.handleChangeTrending = this.handleChangeTrending.bind(this);
+    this.handleChangeAdditionInfo = this.handleChangeAdditionInfo.bind(this);
   }
 
   handleSearchClick(e) {
@@ -42,6 +44,8 @@ export default class MainSearch extends Component {
       const topicArray = this.state.selectedTopics.map((topic) => { return `topic:${topic}` });
       topicQuery = topicArray.join(" ");
     }
+
+    //Overwrite Stars if Trending
     if (this.state.trendingSince) {
       let today = new Date();
       let trendingStarWithAtLeast = 100;
@@ -74,6 +78,7 @@ export default class MainSearch extends Component {
         ${trendingQuery}
         sort:stars 
         ${starsQuery}
+        ${this.state.additionalInfo}
         `
     });
   }
@@ -95,7 +100,11 @@ export default class MainSearch extends Component {
   }
 
   handleChangeView(e, { value }) {
-    this.setState({ viewType: value })
+    this.setState({ viewType: value });
+  }
+
+  handleChangeAdditionInfo(e,{value}){
+    this.setState({ additionalInfo: value });
   }
 
   render() {
@@ -104,13 +113,16 @@ export default class MainSearch extends Component {
 
     return (
       <div>
-        <div>
+        <div className='row'>
           <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
           <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeStars} />
           <Dropdown placeholder='Trending!' search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
-          <Dropdown placeholder='Select Topics' multiple search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />
+          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeAdditionInfo} />
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
+        </div>
+        <div className='row'>
+          <Dropdown placeholder='Select Topics' multiple search selection style={{ marginTop: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />        
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}
