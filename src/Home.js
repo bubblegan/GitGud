@@ -8,7 +8,12 @@ import Format from 'date-fns/format'
 import { Dropdown, Button, Input } from 'semantic-ui-react'
 import RepoResultListWithData from './components/RepoResultsList';
 
-import { LANGUAGES_OPTIONS, TOPIC_OPTIONS, STARS_OPTIONS, TRENDING_OPTION, VIEW_OPTION,VIEW_TYPE_FORK } from './optionsKeyword';
+import { LANGUAGES_OPTIONS, 
+         TOPIC_OPTIONS, 
+         STARS_OPTIONS, 
+         TRENDING_OPTION, 
+         VIEW_OPTION,
+         VIEW_TYPE_FORK } from './optionsKeyword';
 
 
 export default class MainSearch extends Component {
@@ -35,6 +40,7 @@ export default class MainSearch extends Component {
 
   handleSearchClick(e) {
     e.preventDefault();
+
     let topicQuery = '';
     let trendingQuery = '';
     let languageQuery = '';

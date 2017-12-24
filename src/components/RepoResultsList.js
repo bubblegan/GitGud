@@ -11,65 +11,62 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const extraContentGenerator = (viewType , item) => {
+const extraContentGenerator = (viewType, item) => {
 
-  const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span> ;
-  
-  if (viewType === VIEW_TYPE_WATCH) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_CREATED_AT) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_LAST_UPDATE) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> Last Update At {format((item.pushedAt), "MMM YYYY")} </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_FORK) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_ISSUE) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_PR) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>
-      </div>
-    );
-  }
-  else if (viewType === VIEW_TYPE_SIZE) {
-    return (
-      <div>
-        {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>
-      </div>
-    );
+  const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>;
+
+  switch (viewType) {
+    case VIEW_TYPE_WATCH:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>
+        </div>
+      );
+    case VIEW_TYPE_CREATED_AT:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
+        </div>
+      );
+    case VIEW_TYPE_LAST_UPDATE:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> Last Update At {format((item.pushedAt), "MMM YYYY")} </span>
+        </div>
+      );
+    case VIEW_TYPE_FORK:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>
+        </div>
+      );
+    case VIEW_TYPE_ISSUE:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>
+        </div>
+      );
+    case VIEW_TYPE_PR:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>
+        </div>
+      );
+    case VIEW_TYPE_SIZE:
+      return (
+        <div>
+          {totalStarView}
+          <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>
+        </div>
+      );
+    default:
+      return null;
   }
 }
 
@@ -91,7 +88,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
       }
 
       //Change Views
-      let extraContentView = extraContentGenerator(viewType,item);
+      let extraContentView = extraContentGenerator(viewType, item);
 
 
       return (
