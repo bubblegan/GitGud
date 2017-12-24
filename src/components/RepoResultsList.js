@@ -14,60 +14,39 @@ const numberWithCommas = (x) => {
 const extraContentGenerator = (viewType, item) => {
 
   const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>;
+  let extraContent = null;
 
   switch (viewType) {
     case VIEW_TYPE_WATCH:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Watchers </span>;
+      break;
     case VIEW_TYPE_CREATED_AT:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> Created At {format((item.createdAt), "MMM YYYY")} </span>;
+      break;
     case VIEW_TYPE_LAST_UPDATE:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> Last Update At {format((item.pushedAt), "MMM YYYY")} </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> Last Update At {format((item.pushedAt), "MMM YYYY")} </span>;
+      break;
     case VIEW_TYPE_FORK:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>;
+      break;
     case VIEW_TYPE_ISSUE:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>;
+      break;
     case VIEW_TYPE_PR:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>
-        </div>
-      );
+      extraContent = <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>;
+      break;
     case VIEW_TYPE_SIZE:
-      return (
-        <div>
-          {totalStarView}
-          <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>
-        </div>
-      );
+      extraContent = <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>;
+      break;
     default:
-      return null;
+      break;
   }
+  return (
+    <div>
+      {totalStarView}
+      {extraContent}
+    </div>
+  );
 }
 
 function ResultList({ loading, search, fetchMore, viewType }) {
