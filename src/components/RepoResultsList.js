@@ -3,7 +3,7 @@ import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
 import { Dimmer, Loader, Label } from 'semantic-ui-react'
-import { VIEW_TYPE_WATCH, VIEW_TYPE_CREATED_AT, VIEW_TYPE_LAST_UPDATE, VIEW_TYPE_FORK, VIEW_TYPE_ISSUE } from '../optionsKeyword';
+import { VIEW_TYPE_WATCH, VIEW_TYPE_CREATED_AT, VIEW_TYPE_LAST_UPDATE, VIEW_TYPE_FORK, VIEW_TYPE_ISSUE, VIEW_TYPE_PR, VIEW_TYPE_SIZE } from '../optionsKeyword';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -43,7 +43,7 @@ const extraContentGenerator = (viewType , item) => {
     return (
       <div>
         {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Fork </span>
+        <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>
       </div>
     );
   }
@@ -51,7 +51,23 @@ const extraContentGenerator = (viewType , item) => {
     return (
       <div>
         {totalStarView}
-        <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issue </span>
+        <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_PR) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>
+      </div>
+    );
+  }
+  else if (viewType === VIEW_TYPE_SIZE) {
+    return (
+      <div>
+        {totalStarView}
+        <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>
       </div>
     );
   }

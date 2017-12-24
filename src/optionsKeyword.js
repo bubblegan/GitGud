@@ -54,6 +54,8 @@ export const VIEW_TYPE_LAST_UPDATE = "Last Update";
 export const VIEW_TYPE_CREATED_AT = "Create At";
 export const VIEW_TYPE_WATCH = "Total Watchers";
 export const VIEW_TYPE_ISSUE = "Total Issues";
+export const VIEW_TYPE_PR = "Total Pull Request";
+export const VIEW_TYPE_SIZE = "Repo Size"
 
 
 export const VIEW_OPTION = [
@@ -61,5 +63,8 @@ export const VIEW_OPTION = [
     { text: VIEW_TYPE_LAST_UPDATE, value: VIEW_TYPE_LAST_UPDATE },
     { text: VIEW_TYPE_CREATED_AT, value: VIEW_TYPE_CREATED_AT },
     { text: VIEW_TYPE_WATCH, value: VIEW_TYPE_WATCH },
-    { text: VIEW_TYPE_ISSUE, value: VIEW_TYPE_ISSUE}
+    { text: VIEW_TYPE_ISSUE, value: VIEW_TYPE_ISSUE},
+    { text: VIEW_TYPE_PR, value: VIEW_TYPE_PR},
+    { text: VIEW_TYPE_SIZE, value: VIEW_TYPE_SIZE}
+    
 ]
