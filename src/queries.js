@@ -16,8 +16,17 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           description
           createdAt
           pushedAt
-          issues{
+          issues(states:OPEN){
             totalCount
+          }
+          helpWantedIssues:issues(states:OPEN,labels:"help wanted"){
+            totalCount                    
+          }
+          bugIssues:issues(states:OPEN,labels:"bug"){
+            totalCount                    
+          }
+          upForGrabIssues:issues(states:OPEN,labels:"up-for-grabs"){
+            totalCount                    
           }
           pullRequests{
             totalCount
@@ -27,7 +36,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
           watchers{
             totalCount
           }
-          stargazers {
+          stargazers{
             totalCount
           }
           repositoryTopics(first:5){

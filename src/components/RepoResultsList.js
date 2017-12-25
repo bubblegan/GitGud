@@ -3,7 +3,16 @@ import format from 'date-fns/format'
 import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
 import { graphql } from 'react-apollo';
 import { Dimmer, Loader, Label } from 'semantic-ui-react'
-import { VIEW_TYPE_WATCH, VIEW_TYPE_CREATED_AT, VIEW_TYPE_LAST_UPDATE, VIEW_TYPE_FORK, VIEW_TYPE_ISSUE, VIEW_TYPE_PR, VIEW_TYPE_SIZE } from '../optionsKeyword';
+import { VIEW_TYPE_WATCH, 
+         VIEW_TYPE_CREATED_AT, 
+         VIEW_TYPE_LAST_UPDATE, 
+         VIEW_TYPE_FORK, 
+         VIEW_TYPE_ISSUE, 
+         VIEW_TYPE_PR, 
+         VIEW_TYPE_SIZE,
+         VIEW_TYPE_BUGS,
+         VIEW_TYPE_GRABS,
+         VIEW_TYPE_HELP } from '../optionsKeyword';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -31,6 +40,15 @@ const extraContentGenerator = (viewType, item) => {
       break;
     case VIEW_TYPE_ISSUE:
       extraContent = <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>;
+      break;
+    case VIEW_TYPE_GRABS:
+      extraContent = <span className="right floated"> {numberWithCommas(item.upForGrabIssues.totalCount)} Up-For-Grabs </span>;
+    break;
+      case VIEW_TYPE_HELP:
+      extraContent = <span className="right floated"> {numberWithCommas(item.helpWantedIssues.totalCount)} Help Wanted </span>;
+    break;
+      case VIEW_TYPE_BUGS:
+      extraContent = <span className="right floated"> {numberWithCommas(item.bugIssues.totalCount)} Bug Reported </span>;
       break;
     case VIEW_TYPE_PR:
       extraContent = <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>;

@@ -53,9 +53,13 @@ export const VIEW_TYPE_FORK = "Total Fork";
 export const VIEW_TYPE_LAST_UPDATE = "Last Update";
 export const VIEW_TYPE_CREATED_AT = "Create At";
 export const VIEW_TYPE_WATCH = "Total Watchers";
-export const VIEW_TYPE_ISSUE = "Total Issues";
+export const VIEW_TYPE_ISSUE = "Total Open Issues";
+export const VIEW_TYPE_BUGS= "Total Open Bugs"
+export const VIEW_TYPE_HELP = "Total Help Wanted"
+export const VIEW_TYPE_GRABS = "Total Up-For-Grabs"
 export const VIEW_TYPE_PR = "Total Pull Request";
 export const VIEW_TYPE_SIZE = "Repo Size"
+
 
 
 export const VIEW_OPTION = [
@@ -64,6 +68,9 @@ export const VIEW_OPTION = [
     { text: VIEW_TYPE_CREATED_AT, value: VIEW_TYPE_CREATED_AT },
     { text: VIEW_TYPE_WATCH, value: VIEW_TYPE_WATCH },
     { text: VIEW_TYPE_ISSUE, value: VIEW_TYPE_ISSUE},
+    { text: VIEW_TYPE_BUGS, value: VIEW_TYPE_BUGS},
+    { text: VIEW_TYPE_HELP, value: VIEW_TYPE_HELP},
+    { text: VIEW_TYPE_GRABS, value: VIEW_TYPE_GRABS},    
     { text: VIEW_TYPE_PR, value: VIEW_TYPE_PR},
     { text: VIEW_TYPE_SIZE, value: VIEW_TYPE_SIZE}
     
