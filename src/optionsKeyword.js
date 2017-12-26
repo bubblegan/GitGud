@@ -24,11 +24,11 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Swift', value: 'Swift' }
 ];
 
-export const STARS_OPTIONS = [{ text: '10,000 Stars', value: '10000' },
-{ text: '8,000 Stars', value: '8000' },
-{ text: '5,000 Stars', value: '5000' },
-{ text: '3,000 Stars', value: '3000' },
-{ text: '1,000 Stars', value: '1000' },
+export const STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000' },
+{ text: 'At Least 8,000 Stars', value: '8000' },
+{ text: 'At Least 5,000 Stars', value: '5000' },
+{ text: 'At Least 3,000 Stars', value: '3000' },
+{ text: 'At Least 1,000 Stars', value: '1000' },
 ];
 
 export const TOPIC_OPTIONS = [

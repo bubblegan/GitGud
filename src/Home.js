@@ -116,19 +116,20 @@ export default class MainSearch extends Component {
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeStars} />;
 
     return (
       <div>
         <div className='row'>
           <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
-          <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeStars} />
-          <Dropdown placeholder='Trending!' search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
-          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeAdditionInfo} />
+          {MaxStarsDropdown}                    
+          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em', width: 250 + 'px' }} onChange={this.handleChangeAdditionInfo} />
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
-          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
+          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em'}} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
         </div>
         <div className='row'>
-          <Dropdown placeholder='Select Topics' multiple search selection style={{ marginTop: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />        
+          <Dropdown placeholder='Trending?' search selection style={{marginTop: 1 + 'em'  }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />                  
+          <Dropdown placeholder='Select Topics' multiple search selection style={{marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />        
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}
