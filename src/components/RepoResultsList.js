@@ -23,6 +23,12 @@ const numberWithCommas = (x) => {
 const extraContentGenerator = (viewType, item) => {
 
   const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>;
+
+  const bugIssueUrl = item.bugIssues.totalCount > 0 ? <a href={item.url+'/issues?q=is%3Aissue+is%3Aopen+label%3Abug'} target="_blank"> Bug Reported </a> : <span> Bug Reported </span> 
+  const helpWantedUrl = item.helpWantedIssues.totalCount > 0 ?  <a href={item.url+'/issues?q=is%3Aissue+is%3Aopen+label%3A"help+wanted"'} target="_blank">  Help Wanted </a> : <span>  Help Wanted </span> 
+  const issueUrl = item.issues.totalCount > 0 ?  <a href={item.url+'/issues'} target="_blank">  Issues </a> : <span>  Issues </span> 
+  const grabUrl = item.upForGrabIssues > 0 ?  <a href={item.url+'/issues?q=is%3Aissue+is%3Aopen+label%3AUp-For-Grabs"'} target="_blank">  Up-For-Grabs </a> : <span>  Up-For-Grabs </span> 
+
   let extraContent = null;
 
   switch (viewType) {
@@ -39,16 +45,16 @@ const extraContentGenerator = (viewType, item) => {
       extraContent = <span className="right floated"> {numberWithCommas(item.watchers.totalCount)} Forks </span>;
       break;
     case VIEW_TYPE_ISSUE:
-      extraContent = <span className="right floated"> {numberWithCommas(item.issues.totalCount)} Issues </span>;
+      extraContent = <span className="right floated"> {numberWithCommas(item.issues.totalCount)} {issueUrl} </span>;
       break;
     case VIEW_TYPE_GRABS:
-      extraContent = <span className="right floated"> {numberWithCommas(item.upForGrabIssues.totalCount)} Up-For-Grabs </span>;
+      extraContent = <span className="right floated"> {numberWithCommas(item.upForGrabIssues.totalCount)} {grabUrl} </span>;
     break;
       case VIEW_TYPE_HELP:
-      extraContent = <span className="right floated"> {numberWithCommas(item.helpWantedIssues.totalCount)} Help Wanted </span>;
+      extraContent = <span className="right floated"> {numberWithCommas(item.helpWantedIssues.totalCount)} {helpWantedUrl} </span>;
     break;
       case VIEW_TYPE_BUGS:
-      extraContent = <span className="right floated"> {numberWithCommas(item.bugIssues.totalCount)} Bug Reported </span>;
+      extraContent = <span className="right floated"> {numberWithCommas(item.bugIssues.totalCount)} {bugIssueUrl} </span>;
       break;
     case VIEW_TYPE_PR:
       extraContent = <span className="right floated"> {numberWithCommas(item.pullRequests.totalCount)} Pull Request </span>;
