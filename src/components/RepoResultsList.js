@@ -16,6 +16,7 @@ import { VIEW_TYPE_WATCH,
 
 import InfiniteScroll from 'react-infinite-scroller';
 
+//Thousand Separator Function
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
