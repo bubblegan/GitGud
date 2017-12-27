@@ -17,6 +17,5 @@ REACT_APP_GITHUB_API_KEY={/* Your Github Hub Personal Access Token*/}
 npm run dev
 
 ## build for production
-## this project is create with Create-React-App
 npm run build
 
