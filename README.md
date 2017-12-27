@@ -2,21 +2,21 @@
 
 > Experimental project with GraphQL and Github API.
 
-## Build Setup
+# Build Setup
 
-# install dependencies
+## install dependencies
 npm install
 
-# update dependencies
+## update dependencies
 npm update
 
-# Create a .env at the root project with following variable
+## Create a .env at the root project with following variable
 REACT_APP_GITHUB_API_KEY={/* Your Github Hub Personal Access Token*/}
 
-# serve with hot reload at localhost:3000
+## serve with hot reload at localhost:3000
 npm run dev
 
-# build for production
-# this project is create with Create-React-App
+## build for production
+## this project is create with Create-React-App
 npm run build
 
