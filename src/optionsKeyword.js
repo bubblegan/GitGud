@@ -1,5 +1,20 @@
 
 
+export const VIEW_TYPE_FORK = "Total Fork";
+export const VIEW_TYPE_LAST_UPDATE = "Last Update";
+export const VIEW_TYPE_CREATED_AT = "Create At";
+export const VIEW_TYPE_WATCH = "Total Watchers";
+export const VIEW_TYPE_ISSUE = "Total Open Issues";
+export const VIEW_TYPE_BUGS= "Total Open Bugs"
+export const VIEW_TYPE_HELP = "Total Help Wanted"
+export const VIEW_TYPE_GRABS = "Total Up-For-Grabs"
+export const VIEW_TYPE_PR = "Total Pull Request";
+export const VIEW_TYPE_SIZE = "Repo Size";
+
+export const MONTH_VALUE = "month";
+export const QUATER_VALUE = "quater";
+export const YEAR_VALUE = "year";
+
 export const LANGUAGES_OPTIONS = [
     { text: 'All', value: 'All' },
     { text: 'Javascript', value: 'Javascript' },
@@ -44,23 +59,10 @@ export const TOPIC_OPTIONS = [
 
 export const TRENDING_OPTION = [
     { text: 'Non', value: '' },
-    { text: 'Trending This Month', value: 'month' },
-    { text: 'Trending This Quater', value: 'quater' },
-    { text: 'Trending This Year', value: 'year' },
+    { text: 'Trending This Month', value: MONTH_VALUE },
+    { text: 'Trending This Quater', value: QUATER_VALUE },
+    { text: 'Trending This Year', value: YEAR_VALUE },
 ];
-
-export const VIEW_TYPE_FORK = "Total Fork";
-export const VIEW_TYPE_LAST_UPDATE = "Last Update";
-export const VIEW_TYPE_CREATED_AT = "Create At";
-export const VIEW_TYPE_WATCH = "Total Watchers";
-export const VIEW_TYPE_ISSUE = "Total Open Issues";
-export const VIEW_TYPE_BUGS= "Total Open Bugs"
-export const VIEW_TYPE_HELP = "Total Help Wanted"
-export const VIEW_TYPE_GRABS = "Total Up-For-Grabs"
-export const VIEW_TYPE_PR = "Total Pull Request";
-export const VIEW_TYPE_SIZE = "Repo Size"
-
-
 
 export const VIEW_OPTION = [
     { text: VIEW_TYPE_FORK, value: VIEW_TYPE_FORK },

@@ -80,7 +80,8 @@ function ResultList({ loading, search, fetchMore, viewType }) {
       <Dimmer active inverted>
         <Loader inverted>Loading</Loader>
       </Dimmer>);
-  } else if (search) {
+  } 
+  else if (search) {
     const nodeList = search.nodes.map((item) => {
       let topicLabels = null;
 
@@ -93,7 +94,6 @@ function ResultList({ loading, search, fetchMore, viewType }) {
 
       //Change Views
       let extraContentView = extraContentGenerator(viewType, item);
-
 
       return (
         <div className='card' key={item.name}>
@@ -114,6 +114,7 @@ function ResultList({ loading, search, fetchMore, viewType }) {
         </div>
       )
     });
+    
     return (
       <InfiniteScroll
         loadMore={fetchMore}

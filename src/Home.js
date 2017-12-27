@@ -13,12 +13,15 @@ import { LANGUAGES_OPTIONS,
          STARS_OPTIONS, 
          TRENDING_OPTION, 
          VIEW_OPTION,
-         VIEW_TYPE_FORK } from './optionsKeyword';
-
+         VIEW_TYPE_FORK,
+         MONTH_VALUE,
+         YEAR_VALUE,
+         QUATER_VALUE } from './optionsKeyword';
 
 export default class MainSearch extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       selectedLanguage: 'Javascript',
       selectedTopics: [],
@@ -57,14 +60,14 @@ export default class MainSearch extends Component {
       let trendingStarWithAtLeast = 100;
 
       switch (this.state.trendingSince) {
-        case 'month':
+        case MONTH_VALUE:
           topicQuery = 'created:>' + Format(StartOfMonth(today), 'YYYY-MM-DD');
           break;
-        case 'quater':
+        case QUATER_VALUE:
           topicQuery = 'created:>' + Format(StartOfQuarter(today), 'YYYY-MM-DD');
           trendingStarWithAtLeast = 200
           break;
-        case 'year':
+        case YEAR_VALUE:
           topicQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
           trendingStarWithAtLeast = 500
           break;
@@ -129,7 +132,7 @@ export default class MainSearch extends Component {
         </div>
         <div className='row'>
           <Dropdown placeholder='Trending?' search selection style={{marginTop: 1 + 'em'  }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />                  
-          <Dropdown placeholder='Select Topics' multiple search selection style={{marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />        
+          <Dropdown placeholder='Select Topics' multiple search selection style={{marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />                
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}
