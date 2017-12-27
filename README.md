@@ -4,6 +4,7 @@
 
 # Build Setup
 
+``` bash
 ## install dependencies
 npm install
 
@@ -18,4 +19,4 @@ npm run dev
 
 ## build for production
 npm run build
-
+```
