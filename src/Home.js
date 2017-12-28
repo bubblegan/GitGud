@@ -126,7 +126,9 @@ export default class MainSearch extends Component {
         <div className='row'>
           <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
           {MaxStarsDropdown}                    
-          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em', width: 250 + 'px' }} onChange={this.handleChangeAdditionInfo} />
+          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em', width: 220 + 'px' }} onChange={this.handleChangeAdditionInfo} >
+            <input maxLength="30" />
+          </Input>
           <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em'}} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
         </div>
