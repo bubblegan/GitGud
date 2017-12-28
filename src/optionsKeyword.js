@@ -10,6 +10,7 @@ export const VIEW_TYPE_HELP = "Total Help Wanted"
 export const VIEW_TYPE_GRABS = "Total Up-For-Grabs"
 export const VIEW_TYPE_PR = "Total Pull Request";
 export const VIEW_TYPE_SIZE = "Repo Size";
+export const VIEW_LANGUAGE = "Primary Language";
 
 export const MONTH_VALUE = "month";
 export const QUATER_VALUE = "quater";
@@ -46,6 +47,7 @@ export const STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000' },
 { text: 'At Least 1,000 Stars', value: '1000' },
 ];
 
+//TODO : Of course there is more Topics, I havent Figure out how-to include it yet. :P
 export const TOPIC_OPTIONS = [
     { text: 'Testing', value: 'Testing' },
     { text: 'Frontend', value: 'Frontend' },
@@ -74,6 +76,7 @@ export const VIEW_OPTION = [
     { text: VIEW_TYPE_HELP, value: VIEW_TYPE_HELP},
     { text: VIEW_TYPE_GRABS, value: VIEW_TYPE_GRABS},    
     { text: VIEW_TYPE_PR, value: VIEW_TYPE_PR},
-    { text: VIEW_TYPE_SIZE, value: VIEW_TYPE_SIZE}
+    { text: VIEW_TYPE_SIZE, value: VIEW_TYPE_SIZE},
+    { text: VIEW_LANGUAGE, value: VIEW_LANGUAGE},
     
 ]

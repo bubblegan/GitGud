@@ -12,7 +12,8 @@ import { VIEW_TYPE_WATCH,
          VIEW_TYPE_SIZE,
          VIEW_TYPE_BUGS,
          VIEW_TYPE_GRABS,
-         VIEW_TYPE_HELP } from '../optionsKeyword';
+         VIEW_TYPE_HELP,
+         VIEW_LANGUAGE } from '../optionsKeyword';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -62,6 +63,10 @@ const extraContentGenerator = (viewType, item) => {
       break;
     case VIEW_TYPE_SIZE:
       extraContent = <span className="right floated"> {numberWithCommas(item.diskUsage)} KB</span>;
+      break;
+    case VIEW_LANGUAGE:
+      let languageUsed = item.primaryLanguage ? item.primaryLanguage.name : "No Language Used";
+      extraContent = <span className="right floated">{languageUsed}</span>;
       break;
     default:
       break;
