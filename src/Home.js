@@ -27,6 +27,7 @@ export default class MainSearch extends Component {
       selectedTopics: [],
       trendingSince: '',
       minStars: 10000,
+      maxStars: null,
       queryString: '',
       viewType: VIEW_TYPE_FORK, 
       additionalInfo: '',
