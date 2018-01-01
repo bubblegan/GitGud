@@ -37,7 +37,10 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Elixir', value: 'Elixir' },
     { text: 'Vue', value: 'Vue' },
     { text: 'Objective-C', value: 'Objective-C' },
-    { text: 'Swift', value: 'Swift' }
+    { text: 'Swift', value: 'Swift' },
+    { text: 'Dart', value: 'Dart' },
+    { text: 'Haskell', value: 'Haskell' },
+    
 ];
 
 export const STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000' },
