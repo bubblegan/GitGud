@@ -83,8 +83,6 @@ export default class MainSearch extends Component {
     if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
 
-    console.log(starsQuery);
-
     this.setState({
       queryString: `
         ${languageQuery}
@@ -146,7 +144,7 @@ export default class MainSearch extends Component {
                   {MaxStarsDropdown}
                 </Form.Field>
                 <Form.Field>
-                  <label>Additional Info </label>
+                  <label>Add In Some Keyword Here!</label>
                   <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
                     <input maxLength="30" />
                   </Input>
