@@ -10,14 +10,14 @@ import RepoResultListWithData from './components/RepoResultsList';
 
 import {
   LANGUAGES_OPTIONS,
-  TOPIC_OPTIONS,
-  STARS_OPTIONS,
+  MAX_STARS_OPTIONS,
+  MIN_STARS_OPTIONS,
   TRENDING_OPTION,
   VIEW_OPTION,
   VIEW_TYPE_FORK,
   MONTH_VALUE,
   YEAR_VALUE,
-  QUATER_VALUE
+  QUATER_VALUE,
 } from './optionsKeyword';
 
 export default class MainSearch extends Component {
@@ -29,16 +29,16 @@ export default class MainSearch extends Component {
       selectedTopics: [],
       trendingSince: '',
       minStars: 10000,
-      maxStars: null,
+      maxStars: 500000,
       queryString: '',
       viewType: VIEW_TYPE_FORK,
       additionalInfo: '',
     };
 
     this.handleSearchClick = this.handleSearchClick.bind(this);
-    this.handleChangeStars = this.handleChangeStars.bind(this);
+    this.handleChangeMinStars = this.handleChangeMinStars.bind(this);
+    this.handleChangeMaxStars = this.handleChangeMaxStars.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
-    this.handleChangeTopics = this.handleChangeTopics.bind(this);
     this.handleChangeView = this.handleChangeView.bind(this);
     this.handleChangeTrending = this.handleChangeTrending.bind(this);
     this.handleChangeAdditionInfo = this.handleChangeAdditionInfo.bind(this);
@@ -50,7 +50,7 @@ export default class MainSearch extends Component {
     let topicQuery = '';
     let trendingQuery = '';
     let languageQuery = '';
-    let starsQuery = `stars:>${this.state.minStars}`;
+    let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;
 
     if (this.state.selectedTopics.length > 0) {
       const topicArray = this.state.selectedTopics.map((topic) => { return `topic:${topic}` });
@@ -83,6 +83,8 @@ export default class MainSearch extends Component {
     if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
 
+    console.log(starsQuery);
+
     this.setState({
       queryString: `
         ${languageQuery}
@@ -99,12 +101,12 @@ export default class MainSearch extends Component {
     this.setState({ selectedLanguage: value });
   }
 
-  handleChangeStars(e, { value }) {
+  handleChangeMinStars(e, { value }) {
     this.setState({ minStars: value });
   }
 
-  handleChangeTopics(e, { value }) {
-    this.setState({ selectedTopics: value });
+  handleChangeMaxStars(e, { value }) {
+    this.setState({ maxStars: value });
   }
 
   handleChangeTrending(e, { value }) {
@@ -122,17 +124,22 @@ export default class MainSearch extends Component {
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} onChange={this.handleChangeStars} />;
-
+    const MinStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
+    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
+    
     return (
       <div>
-        <div className='ui two column stackable grid'>
-          <div className='ten wide column'>
+        <div className='ui column stackable grid' style={{ marginTop: 1 + '%' }}>
+          <div className='column'>
             <Form>
               <Form.Group widths='equal'>
                 <Form.Field>
                   <label> Languages </label>
                   <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
+                </Form.Field>
+                <Form.Field>
+                  <label> Min Stars </label>
+                  {MinStarsDropdown}
                 </Form.Field>
                 <Form.Field>
                   <label> Max Stars </label>
@@ -144,17 +151,16 @@ export default class MainSearch extends Component {
                     <input maxLength="30" />
                   </Input>
                 </Form.Field>
+                <Form.Field>
+                  <Button primary as='button' onClick={this.handleSearchClick} style={{  marginTop: 23 + 'px' }}> Search </Button>                
+                </Form.Field>
               </Form.Group>
             </Form>
           </div>
-          <div className='six wide column'>
-            <Button primary as='button' onClick={this.handleSearchClick} style={{ marginTop: 23 + 'px' }}> Search </Button>
-            <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
-          </div>
         </div>
         <div className='row'>
-          <Dropdown placeholder='Trending?' search selection style={{ marginTop: 1 + 'em' }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
-          <Dropdown placeholder='Select Topics' multiple search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />
+          <Dropdown placeholder='Trending?' search selection  onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
+          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />                            
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}

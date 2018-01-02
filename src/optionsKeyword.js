@@ -40,17 +40,18 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Swift', value: 'Swift' },
     { text: 'Dart', value: 'Dart' },
     { text: 'Haskell', value: 'Haskell' },
-    
 ];
 
-export const STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000' },
+export const MIN_STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000' },
 { text: 'At Least 8,000 Stars', value: '8000' },
 { text: 'At Least 5,000 Stars', value: '5000' },
 { text: 'At Least 3,000 Stars', value: '3000' },
 { text: 'At Least 1,000 Stars', value: '1000' },
 ];
 
-export const MAX_STARS_OPTIONS = [{ text: 'At Most 10,000 Stars', value: '10000' },
+export const MAX_STARS_OPTIONS = [{ text: '-', value: '500000' },
+{ text: 'At Most 50,000 Stars', value: '50000' },
+{ text: 'At Most 10,000 Stars', value: '10000' },
 { text: 'At Most 8,000 Stars', value: '8000' },
 { text: 'At Most 5,000 Stars', value: '5000' },
 { text: 'At Most 3,000 Stars', value: '3000' },
