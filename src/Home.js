@@ -5,18 +5,20 @@ import StartOfQuarter from 'date-fns/start_of_quarter'
 import StartOfYear from 'date-fns/start_of_year'
 import Format from 'date-fns/format'
 
-import { Dropdown, Button, Input } from 'semantic-ui-react'
+import { Dropdown, Button, Input, Form } from 'semantic-ui-react'
 import RepoResultListWithData from './components/RepoResultsList';
 
-import { LANGUAGES_OPTIONS, 
-         TOPIC_OPTIONS, 
-         STARS_OPTIONS, 
-         TRENDING_OPTION, 
-         VIEW_OPTION,
-         VIEW_TYPE_FORK,
-         MONTH_VALUE,
-         YEAR_VALUE,
-         QUATER_VALUE } from './optionsKeyword';
+import {
+  LANGUAGES_OPTIONS,
+  TOPIC_OPTIONS,
+  STARS_OPTIONS,
+  TRENDING_OPTION,
+  VIEW_OPTION,
+  VIEW_TYPE_FORK,
+  MONTH_VALUE,
+  YEAR_VALUE,
+  QUATER_VALUE
+} from './optionsKeyword';
 
 export default class MainSearch extends Component {
   constructor(props) {
@@ -29,7 +31,7 @@ export default class MainSearch extends Component {
       minStars: 10000,
       maxStars: null,
       queryString: '',
-      viewType: VIEW_TYPE_FORK, 
+      viewType: VIEW_TYPE_FORK,
       additionalInfo: '',
     };
 
@@ -113,29 +115,46 @@ export default class MainSearch extends Component {
     this.setState({ viewType: value });
   }
 
-  handleChangeAdditionInfo(e,{value}){
+  handleChangeAdditionInfo(e, { value }) {
     this.setState({ additionalInfo: value });
   }
 
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeStars} />;
+    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={STARS_OPTIONS} onChange={this.handleChangeStars} />;
 
     return (
       <div>
-        <div className='row'>
-          <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
-          {MaxStarsDropdown}                    
-          <Input placeholder='Additional Info' style={{ marginLeft: 1 + 'em', width: 14 + 'em' }} onChange={this.handleChangeAdditionInfo} >
-            <input maxLength="30" />
-          </Input>
-          <Button primary as='button' onClick={this.handleSearchClick} style={{ marginLeft: 1 + 'em' }}> Search </Button>
-          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em'}} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View'/>
+        <div className='ui two column stackable grid'>
+          <div className='ten wide column'>
+            <Form>
+              <Form.Group widths='equal'>
+                <Form.Field>
+                  <label> Languages </label>
+                  <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
+                </Form.Field>
+                <Form.Field>
+                  <label> Max Stars </label>
+                  {MaxStarsDropdown}
+                </Form.Field>
+                <Form.Field>
+                  <label>Additional Info </label>
+                  <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
+                    <input maxLength="30" />
+                  </Input>
+                </Form.Field>
+              </Form.Group>
+            </Form>
+          </div>
+          <div className='six wide column'>
+            <Button primary as='button' onClick={this.handleSearchClick} style={{ marginTop: 23 + 'px' }}> Search </Button>
+            <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
+          </div>
         </div>
         <div className='row'>
-          <Dropdown placeholder='Trending?' search selection style={{marginTop: 1 + 'em'  }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />                  
-          <Dropdown placeholder='Select Topics' multiple search selection style={{marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />                
+          <Dropdown placeholder='Trending?' search selection style={{ marginTop: 1 + 'em' }} onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
+          <Dropdown placeholder='Select Topics' multiple search selection style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeTopics} options={TOPIC_OPTIONS} />
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}
