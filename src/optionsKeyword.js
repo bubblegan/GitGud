@@ -47,6 +47,7 @@ export const MIN_STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: '10000
 { text: 'At Least 5,000 Stars', value: '5000' },
 { text: 'At Least 3,000 Stars', value: '3000' },
 { text: 'At Least 1,000 Stars', value: '1000' },
+{ text: '-', value: '0' }
 ];
 
 export const MAX_STARS_OPTIONS = [{ text: '-', value: '500000' },
