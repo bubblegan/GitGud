@@ -21,8 +21,6 @@ import {
 } from './optionsKeyword';
 
 
-
-
 export default class MainSearch extends Component {
   constructor(props) {
     super(props);
@@ -127,26 +125,48 @@ export default class MainSearch extends Component {
     this.setState({ additionalInfo: value });
   }
 
+
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     const MinStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
     let TrendingButton = null;
+    let MinStarForms = null;
+    let MaxStarForms = null;
+    let TrendingForms = null;
 
     if(this.state.searchType === 'trending'){
       TrendingButton = (<Button.Group>
-        <Button  onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
-          <Button.Or />
-        <Button positive  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
-      </Button.Group>)
+                <Button  onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+                  <Button.Or />
+                <Button positive  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+              </Button.Group>);
+      TrendingForms = (
+          <Form.Field>
+            <label> Trending Since</label>
+            <Dropdown placeholder='Trending?' search selection onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
+          </Form.Field>
+      );               
     }
     else if(this.state.searchType === 'normal'){
       TrendingButton = (<Button.Group>
-        <Button positive onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
-          <Button.Or />
-        <Button  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
-      </Button.Group>)
+                <Button positive onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+                  <Button.Or />
+                <Button  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+              </Button.Group>);
+      MinStarForms = (
+        <Form.Field>
+          <label> Min Stars </label>
+          {MinStarsDropdown}
+        </Form.Field>
+      );
+      MaxStarForms = (
+        <Form.Field>
+          <label> Max Stars </label>
+          {MaxStarsDropdown}
+        </Form.Field>
+      );
     }
 
     return (
@@ -154,7 +174,6 @@ export default class MainSearch extends Component {
         <div className='row'>
           {TrendingButton}
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />                                      
-          <Dropdown placeholder='Trending?' search selection style={{ marginLeft: 1 + 'em' }}   onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
         </div>
         <div className='ui column stackable grid' style={{ marginTop: 1 + '%' }}>
           <div className='column'>
@@ -164,14 +183,9 @@ export default class MainSearch extends Component {
                   <label> Languages </label>
                   <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
                 </Form.Field>
-                <Form.Field>
-                  <label> Min Stars </label>
-                  {MinStarsDropdown}
-                </Form.Field>
-                <Form.Field>
-                  <label> Max Stars </label>
-                  {MaxStarsDropdown}
-                </Form.Field>
+                {MinStarForms}
+                {MaxStarForms}
+                {TrendingForms}
                 <Form.Field>
                   <label>Add In Some Keyword Here!</label>
                   <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
