@@ -20,6 +20,9 @@ import {
   QUATER_VALUE,
 } from './optionsKeyword';
 
+
+
+
 export default class MainSearch extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +33,7 @@ export default class MainSearch extends Component {
       trendingSince: '',
       minStars: 10000,
       maxStars: 500000,
+      searchType: 'normal',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
       additionalInfo: '',
@@ -107,8 +111,12 @@ export default class MainSearch extends Component {
     this.setState({ maxStars: value });
   }
 
-  handleChangeTrending(e, { value }) {
+  handleChangeTrending(e, {value}) {
     this.setState({ trendingSince: value });
+  }
+
+  handleChangeSearchType(searchType){
+    this.setState({ searchType: searchType});
   }
 
   handleChangeView(e, { value }) {
@@ -124,9 +132,30 @@ export default class MainSearch extends Component {
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     const MinStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
-    
+    let TrendingButton = null;
+
+    if(this.state.searchType === 'trending'){
+      TrendingButton = (<Button.Group>
+        <Button  onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+          <Button.Or />
+        <Button positive  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+      </Button.Group>)
+    }
+    else if(this.state.searchType === 'normal'){
+      TrendingButton = (<Button.Group>
+        <Button positive onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+          <Button.Or />
+        <Button  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+      </Button.Group>)
+    }
+
     return (
       <div>
+        <div className='row'>
+          {TrendingButton}
+          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />                                      
+          <Dropdown placeholder='Trending?' search selection style={{ marginLeft: 1 + 'em' }}   onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
+        </div>
         <div className='ui column stackable grid' style={{ marginTop: 1 + '%' }}>
           <div className='column'>
             <Form>
@@ -155,10 +184,6 @@ export default class MainSearch extends Component {
               </Form.Group>
             </Form>
           </div>
-        </div>
-        <div className='row'>
-          <Dropdown placeholder='Trending?' search selection  onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
-          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />                            
         </div>
         <div style={{ paddingTop: 2 + '%' }}>
           {RepoResults}
