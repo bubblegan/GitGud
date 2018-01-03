@@ -72,7 +72,6 @@ export const TOPIC_OPTIONS = [
 ];
 
 export const TRENDING_OPTION = [
-    { text: 'Non', value: '' },
     { text: 'Trending This Month', value: MONTH_VALUE },
     { text: 'Trending This Quater', value: QUATER_VALUE },
     { text: 'Trending This Year', value: YEAR_VALUE },

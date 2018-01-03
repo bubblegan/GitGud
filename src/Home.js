@@ -28,7 +28,7 @@ export default class MainSearch extends Component {
     this.state = {
       selectedLanguage: 'Javascript',
       selectedTopics: [],
-      trendingSince: '',
+      trendingSince: MONTH_VALUE,
       minStars: 10000,
       maxStars: 500000,
       searchType: 'normal',
@@ -60,7 +60,7 @@ export default class MainSearch extends Component {
     }
 
     //Overwrite Stars if Trending
-    if (this.state.trendingSince) {
+    if (this.state.searchType === 'trending') {
       let today = new Date();
       let trendingStarWithAtLeast = 100;
 
@@ -85,15 +85,17 @@ export default class MainSearch extends Component {
     if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
 
+    let queryString = `
+            ${languageQuery}
+            ${topicQuery} 
+            ${trendingQuery}
+            sort:stars 
+            ${starsQuery}
+            ${this.state.additionalInfo}
+    `;
+
     this.setState({
-      queryString: `
-        ${languageQuery}
-        ${topicQuery} 
-        ${trendingQuery}
-        sort:stars 
-        ${starsQuery}
-        ${this.state.additionalInfo}
-        `
+      queryString: queryString
     });
   }
 
@@ -129,8 +131,8 @@ export default class MainSearch extends Component {
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    const MinStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
-    const MaxStarsDropdown = this.state.trendingSince ? null : <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
+    const MinStarsDropdown = <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
+    const MaxStarsDropdown = <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
     let TrendingButton = null;
     let MinStarForms = null;
     let MaxStarForms = null;
@@ -145,7 +147,7 @@ export default class MainSearch extends Component {
       TrendingForms = (
           <Form.Field>
             <label> Trending Since</label>
-            <Dropdown placeholder='Trending?' search selection onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
+            <Dropdown placeholder='Trending?'  defaultValue={MONTH_VALUE} search selection onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
           </Form.Field>
       );               
     }
