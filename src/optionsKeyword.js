@@ -16,6 +16,11 @@ export const MONTH_VALUE = "month";
 export const QUATER_VALUE = "quater";
 export const YEAR_VALUE = "year";
 
+export const LAST_MONTH_VALUE = "last_month";
+export const LAST_QUATER_VALUE = "last_quater";
+export const LAST_YEAR_VALUE = "last_year";
+
+
 export const LANGUAGES_OPTIONS = [
     { text: 'All', value: 'All' },
     { text: 'Javascript', value: 'Javascript' },
@@ -75,6 +80,9 @@ export const TRENDING_OPTION = [
     { text: 'Trending This Month', value: MONTH_VALUE },
     { text: 'Trending This Quater', value: QUATER_VALUE },
     { text: 'Trending This Year', value: YEAR_VALUE },
+    { text: 'Trending Last Month', value: LAST_MONTH_VALUE },
+    { text: 'Trending Last Quater', value: LAST_QUATER_VALUE },
+    { text: 'Trending Last Year', value: LAST_YEAR_VALUE },
 ];
 
 export const VIEW_OPTION = [

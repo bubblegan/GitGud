@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import StartOfMonth from 'date-fns/start_of_month'
 import StartOfQuarter from 'date-fns/start_of_quarter'
 import StartOfYear from 'date-fns/start_of_year'
+import AddMonths from 'date-fns/add_months'
+import AddQuarters from 'date-fns/add_quarters'
+import AddYears from 'date-fns/add_quarters'
 import Format from 'date-fns/format'
 
 import { Dropdown, Button, Input, Form } from 'semantic-ui-react'
@@ -18,6 +21,9 @@ import {
   MONTH_VALUE,
   YEAR_VALUE,
   QUATER_VALUE,
+  LAST_MONTH_VALUE,
+  LAST_YEAR_VALUE,
+  LAST_QUATER_VALUE,
 } from './optionsKeyword';
 
 const DEFAULT_MIN_STARS = 10000;
@@ -66,6 +72,10 @@ export default class RepoSearch extends Component {
     //Overwrite Stars if Trending
     if (this.state.searchType === SEARCH_TRENDING) {
       let today = new Date();
+      let lastMonth = AddMonths(today, -1);
+      let lastQuater = AddQuarters(today, -1);
+      let lastYear = AddYears(today , -1);
+
       let trendingStarWithAtLeast = 100;
 
       switch (this.state.trendingSince) {
@@ -80,6 +90,17 @@ export default class RepoSearch extends Component {
           topicQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
           trendingStarWithAtLeast = 500
           break;
+        case LAST_MONTH_VALUE:
+          topicQuery = 'created:>' + Format(StartOfMonth(lastMonth), 'YYYY-MM-DD');
+          break;
+        case LAST_QUATER_VALUE:
+          topicQuery = 'created:>' + Format(StartOfQuarter(lastQuater), 'YYYY-MM-DD');
+          trendingStarWithAtLeast = 200
+          break;
+        case LAST_YEAR_VALUE:
+          topicQuery = 'created:>' + Format(StartOfYear(lastYear), 'YYYY-MM-DD');
+          trendingStarWithAtLeast = 500
+          break;  
         default:
           break;
       }
