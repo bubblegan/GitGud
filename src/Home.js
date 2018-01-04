@@ -20,6 +20,9 @@ import {
   QUATER_VALUE,
 } from './optionsKeyword';
 
+const DEFAULT_MIN_STARS = 10000;
+const DEFAULT_MAX_STARS = 500000;
+
 
 export default class MainSearch extends Component {
   constructor(props) {
@@ -29,8 +32,8 @@ export default class MainSearch extends Component {
       selectedLanguage: 'Javascript',
       selectedTopics: [],
       trendingSince: MONTH_VALUE,
-      minStars: 10000,
-      maxStars: 500000,
+      minStars: DEFAULT_MIN_STARS,
+      maxStars: DEFAULT_MAX_STARS,
       searchType: 'normal',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
@@ -111,18 +114,26 @@ export default class MainSearch extends Component {
     this.setState({ maxStars: value });
   }
 
+  //Change of Trendings dropdown
   handleChangeTrending(e, {value}) {
     this.setState({ trendingSince: value });
   }
 
+  //Change Search Type Between Trending and Normal
   handleChangeSearchType(searchType){
+    if(searchType === 'normal'){
+      this.setState({minStars : DEFAULT_MIN_STARS, maxStars : DEFAULT_MAX_STARS});
+    }
+
     this.setState({ searchType: searchType});
   }
 
+  //Change View of RepoResults, Eg, Forks, Created At...
   handleChangeView(e, { value }) {
     this.setState({ viewType: value });
   }
 
+  //Change of additional info input for keyword search
   handleChangeAdditionInfo(e, { value }) {
     this.setState({ additionalInfo: value });
   }
@@ -131,8 +142,8 @@ export default class MainSearch extends Component {
   render() {
 
     const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    const MinStarsDropdown = <Dropdown defaultValue='10000' search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
-    const MaxStarsDropdown = <Dropdown defaultValue='500000' search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
+    const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
+    const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
     let TrendingButton = null;
     let MinStarForms = null;
     let MaxStarForms = null;
