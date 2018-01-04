@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Dropdown, Progress } from "semantic-ui-react";
 import { graphql } from 'react-apollo';
-import RepoSearch from "./Home";
+import RepoSearch from "./RepoSearch";
 import ProfileSearch from "./Profile";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { PROFILE_LIMIT_DETAIL } from './queries';

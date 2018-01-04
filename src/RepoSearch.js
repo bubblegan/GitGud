@@ -25,8 +25,7 @@ const DEFAULT_MAX_STARS = 500000;
 const SEARCH_TRENDING = 'trending';
 const SEARCH_NORMAL = 'normal';
 
-
-export default class MainSearch extends Component {
+export default class RepoSearch extends Component {
   constructor(props) {
     super(props);
 
@@ -126,7 +125,6 @@ export default class MainSearch extends Component {
     if(searchType === SEARCH_NORMAL){
       this.setState({minStars : DEFAULT_MIN_STARS, maxStars : DEFAULT_MAX_STARS});
     }
-
     this.setState({ searchType: searchType});
   }
 
