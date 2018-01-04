@@ -22,6 +22,8 @@ import {
 
 const DEFAULT_MIN_STARS = 10000;
 const DEFAULT_MAX_STARS = 500000;
+const SEARCH_TRENDING = 'trending';
+const SEARCH_NORMAL = 'normal';
 
 
 export default class MainSearch extends Component {
@@ -34,7 +36,7 @@ export default class MainSearch extends Component {
       trendingSince: MONTH_VALUE,
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
-      searchType: 'normal',
+      searchType: SEARCH_NORMAL,
       queryString: '',
       viewType: VIEW_TYPE_FORK,
       additionalInfo: '',
@@ -63,7 +65,7 @@ export default class MainSearch extends Component {
     }
 
     //Overwrite Stars if Trending
-    if (this.state.searchType === 'trending') {
+    if (this.state.searchType === SEARCH_TRENDING) {
       let today = new Date();
       let trendingStarWithAtLeast = 100;
 
@@ -121,7 +123,7 @@ export default class MainSearch extends Component {
 
   //Change Search Type Between Trending and Normal
   handleChangeSearchType(searchType){
-    if(searchType === 'normal'){
+    if(searchType === SEARCH_NORMAL){
       this.setState({minStars : DEFAULT_MIN_STARS, maxStars : DEFAULT_MAX_STARS});
     }
 
@@ -149,11 +151,11 @@ export default class MainSearch extends Component {
     let MaxStarForms = null;
     let TrendingForms = null;
 
-    if(this.state.searchType === 'trending'){
+    if(this.state.searchType ===  SEARCH_TRENDING){
       TrendingButton = (<Button.Group>
-                <Button  onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
                   <Button.Or />
-                <Button positive  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+                <Button positive  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
               </Button.Group>);
       TrendingForms = (
           <Form.Field>
@@ -162,11 +164,11 @@ export default class MainSearch extends Component {
           </Form.Field>
       );               
     }
-    else if(this.state.searchType === 'normal'){
+    else if(this.state.searchType === SEARCH_NORMAL){
       TrendingButton = (<Button.Group>
-                <Button positive onClick={this.handleChangeSearchType.bind(this, 'normal')}>Normal</Button>
+                <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
                   <Button.Or />
-                <Button  onClick={this.handleChangeSearchType.bind(this, 'trending')}>Trending</Button>
+                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
               </Button.Group>);
       MinStarForms = (
         <Form.Field>
