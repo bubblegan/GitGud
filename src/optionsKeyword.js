@@ -65,7 +65,7 @@ export const MAX_STARS_OPTIONS = [{ text: '-', value: 500000 },
 { text: 'At Most 1,000 Stars', value: 1000 },
 ];
 
-//TODO : Of course there is more Topics, I havent Figure out how-to include it yet. :P
+//Temperory Not in Used. Experimental
 export const TOPIC_OPTIONS = [
     { text: 'Testing', value: 'Testing' },
     { text: 'Frontend', value: 'Frontend' },

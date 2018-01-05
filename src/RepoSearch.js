@@ -29,6 +29,7 @@ import {
 const DEFAULT_MIN_STARS = 10000;
 const DEFAULT_MAX_STARS = 500000;
 const DEFAULT_TRENDING_STARS = 200;
+const DEFAULT_SELECTED_LANGUAGE = 'Javascript';
 const SEARCH_TRENDING = 'trending';
 const SEARCH_NORMAL = 'normal';
 
@@ -37,7 +38,7 @@ export default class RepoSearch extends Component {
     super(props);
 
     this.state = {
-      selectedLanguage: 'Javascript',
+      selectedLanguage: DEFAULT_SELECTED_LANGUAGE ,
       selectedTopics: [],
       trendingSince: MONTH_VALUE,
       minStars: DEFAULT_MIN_STARS,
@@ -210,7 +211,7 @@ export default class RepoSearch extends Component {
               <Form.Group widths='equal'>
                 <Form.Field>
                   <label> Languages </label>
-                  <Dropdown defaultValue='Javascript' search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
+                  <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE}  search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
                 </Form.Field>
                 {MinStarForms}
                 {MaxStarForms}
