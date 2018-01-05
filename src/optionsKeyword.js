@@ -1,5 +1,5 @@
 
-
+//View Types
 export const VIEW_TYPE_FORK = "Total Fork";
 export const VIEW_TYPE_LAST_UPDATE = "Last Update";
 export const VIEW_TYPE_CREATED_AT = "Create At";
@@ -12,10 +12,10 @@ export const VIEW_TYPE_PR = "Total Pull Request";
 export const VIEW_TYPE_SIZE = "Repo Size";
 export const VIEW_LANGUAGE = "Primary Language";
 
+//Date Dropdown Values
 export const MONTH_VALUE = "month";
 export const QUATER_VALUE = "quater";
 export const YEAR_VALUE = "year";
-
 export const LAST_MONTH_VALUE = "last_month";
 export const LAST_QUATER_VALUE = "last_quater";
 export const LAST_YEAR_VALUE = "last_year";
@@ -47,12 +47,12 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Haskell', value: 'Haskell' },
 ];
 
-export const MIN_STARS_OPTIONS = [{ text: 'At Least 10,000 Stars', value: 10000 },
+export const MIN_STARS_OPTIONS = [{ text: '-', value: '0' },
+{ text: 'At Least 10,000 Stars', value: 10000 },
 { text: 'At Least 8,000 Stars', value: 8000 },
 { text: 'At Least 5,000 Stars', value: 5000 },
 { text: 'At Least 3,000 Stars', value: 3000 },
 { text: 'At Least 1,000 Stars', value: 1000 },
-{ text: '-', value: '0' }
 ];
 
 export const MAX_STARS_OPTIONS = [{ text: '-', value: 500000 },
