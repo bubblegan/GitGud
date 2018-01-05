@@ -47,23 +47,32 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Haskell', value: 'Haskell' },
 ];
 
-export const MIN_STARS_OPTIONS = [{ text: '-', value: 0 },
-{ text: 'At Least 10,000 Stars', value: 10000 },
-{ text: 'At Least 8,000 Stars', value: 8000 },
-{ text: 'At Least 5,000 Stars', value: 5000 },
-{ text: 'At Least 3,000 Stars', value: 3000 },
-{ text: 'At Least 1,000 Stars', value: 1000 },
+export const MIN_STARS_OPTIONS = [
+    { text: '-', value: 0 },
+    { text: 'At Least 10,000 Stars', value: 10000 },
+    { text: 'At Least 8,000 Stars', value: 8000 },
+    { text: 'At Least 5,000 Stars', value: 5000 },
+    { text: 'At Least 3,000 Stars', value: 3000 },
+    { text: 'At Least 1,000 Stars', value: 1000 },
 ];
 
-export const MAX_STARS_OPTIONS = [{ text: '-', value: 500000 },
-{ text: 'At Most 50,000 Stars', value: 50000 },
-{ text: 'At Most 25,000 Stars', value: 25000 },
-{ text: 'At Most 10,000 Stars', value: 10000 },
-{ text: 'At Most 8,000 Stars', value: 8000 },
-{ text: 'At Most 5,000 Stars', value: 5000 },
-{ text: 'At Most 3,000 Stars', value: 3000 },
-{ text: 'At Most 1,000 Stars', value: 1000 },
+export const MAX_STARS_OPTIONS = [
+    { text: '-', value: 500000 },
+    { text: 'At Most 50,000 Stars', value: 50000 },
+    { text: 'At Most 25,000 Stars', value: 25000 },
+    { text: 'At Most 10,000 Stars', value: 10000 },
+    { text: 'At Most 8,000 Stars', value: 8000 },
+    { text: 'At Most 5,000 Stars', value: 5000 },
+    { text: 'At Most 3,000 Stars', value: 3000 },
+    { text: 'At Most 1,000 Stars', value: 1000 },
 ];
+
+export const REPO_SEARCH_OPTIONS = [
+    { text: 'Starred Repos', value: 'StarredRepos' },
+    { text: 'Owned Repos', value: 'OwnedRepos' },
+    { text: 'Forked Repos', value: 'ForkedRepos' },    
+]
+
 
 //Temperory Not in Used. Experimental
 export const TOPIC_OPTIONS = [

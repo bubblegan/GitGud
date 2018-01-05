@@ -24,6 +24,7 @@ import {
   LAST_MONTH_VALUE,
   LAST_YEAR_VALUE,
   LAST_QUATER_VALUE,
+  REPO_SEARCH_OPTIONS,
 } from './optionsKeyword';
 
 const DEFAULT_MIN_STARS = 10000;
@@ -45,6 +46,7 @@ export default class RepoSearch extends Component {
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
       searchType: SEARCH_NORMAL,
+      repoSearchType: 'StarredRepos',
       profileName: '',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
@@ -58,6 +60,7 @@ export default class RepoSearch extends Component {
     this.handleChangeView = this.handleChangeView.bind(this);
     this.handleChangeTrending = this.handleChangeTrending.bind(this);
     this.handleChangeAdditionInfo = this.handleChangeAdditionInfo.bind(this);
+    this.handleChangeRepoType = this.handleChangeRepoType.bind(this);
   }
 
   handleSearchClick(e) {
@@ -161,6 +164,10 @@ export default class RepoSearch extends Component {
     this.setState({ profileName: value })
   }
 
+  handleChangeRepoType(e, {value}){
+    this.setState({ repoSearchType: 'StarredRepos'})
+  }
+
 
   render() {
 
@@ -172,6 +179,7 @@ export default class RepoSearch extends Component {
     let MaxStarForms = null;
     let TrendingForms = null;
     let ProfileForms = null;
+    let RepoForms = null;
 
     if(this.state.searchType ===  SEARCH_TRENDING){
       TrendingButton = (<Button.Group>
@@ -218,11 +226,15 @@ export default class RepoSearch extends Component {
                 <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>   
               </Button.Group>);
       ProfileForms = (<Form.Field>
-          <label>Profile Name</label>
-          <Input placeholder='Name' onChange={this.handleChangeProfile} >
+          <label>User Profile</label>
+          <Input placeholder='Login ID or Email' onChange={this.handleChangeProfile} >
             <input maxLength='50' />
           </Input>
       </Form.Field>);    
+      RepoForms = (<Form.Field>
+        <label>Repo Typee</label>
+        <Dropdown defaultValue="StarredRepos" search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
+    </Form.Field>);    
     }
 
     return (
@@ -243,6 +255,7 @@ export default class RepoSearch extends Component {
                 {MaxStarForms}
                 {ProfileForms}
                 {TrendingForms}
+                {RepoForms}
                 <Form.Field>
                   <label>Add In Some Keyword Here!</label>
                   <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
