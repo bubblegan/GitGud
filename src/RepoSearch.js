@@ -28,6 +28,7 @@ import {
 
 const DEFAULT_MIN_STARS = 10000;
 const DEFAULT_MAX_STARS = 500000;
+const DEFAULT_TRENDING_STARS = 200;
 const SEARCH_TRENDING = 'trending';
 const SEARCH_NORMAL = 'normal';
 
@@ -76,7 +77,6 @@ export default class RepoSearch extends Component {
       let lastQuater = AddQuarters(today, -1);
       let lastYear = AddYears(today , -1);
 
-      let trendingStarWithAtLeast = 100;
 
       switch (this.state.trendingSince) {
         case MONTH_VALUE:
@@ -84,27 +84,23 @@ export default class RepoSearch extends Component {
           break;
         case QUATER_VALUE:
           topicQuery = 'created:>' + Format(StartOfQuarter(today), 'YYYY-MM-DD');
-          trendingStarWithAtLeast = 200
           break;
         case YEAR_VALUE:
           topicQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
-          trendingStarWithAtLeast = 500
           break;
         case LAST_MONTH_VALUE:
           topicQuery = 'created:>' + Format(StartOfMonth(lastMonth), 'YYYY-MM-DD');
           break;
         case LAST_QUATER_VALUE:
           topicQuery = 'created:>' + Format(StartOfQuarter(lastQuater), 'YYYY-MM-DD');
-          trendingStarWithAtLeast = 200
           break;
         case LAST_YEAR_VALUE:
           topicQuery = 'created:>' + Format(StartOfYear(lastYear), 'YYYY-MM-DD');
-          trendingStarWithAtLeast = 500
           break;  
         default:
           break;
       }
-      starsQuery = `stars:>${trendingStarWithAtLeast}`;
+      starsQuery = `stars:>${DEFAULT_TRENDING_STARS}`;
     }
 
     if (this.state.selectedLanguage !== 'All')
