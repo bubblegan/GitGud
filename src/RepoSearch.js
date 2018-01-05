@@ -77,7 +77,6 @@ export default class RepoSearch extends Component {
       let lastQuater = AddQuarters(today, -1);
       let lastYear = AddYears(today , -1);
 
-
       switch (this.state.trendingSince) {
         case MONTH_VALUE:
           topicQuery = 'created:>' + Format(StartOfMonth(today), 'YYYY-MM-DD');
