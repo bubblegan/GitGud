@@ -32,6 +32,7 @@ const DEFAULT_TRENDING_STARS = 200;
 const DEFAULT_SELECTED_LANGUAGE = 'Javascript';
 const SEARCH_TRENDING = 'trending';
 const SEARCH_NORMAL = 'normal';
+const SEARCH_PROFILE = 'profile';
 
 export default class RepoSearch extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export default class RepoSearch extends Component {
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
       searchType: SEARCH_NORMAL,
+      profileName: '',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
       additionalInfo: '',
@@ -155,6 +157,10 @@ export default class RepoSearch extends Component {
     this.setState({ additionalInfo: value });
   }
 
+  handleChangeProfile(e, {value}){
+    this.setState({ profileName: value })
+  }
+
 
   render() {
 
@@ -165,12 +171,15 @@ export default class RepoSearch extends Component {
     let MinStarForms = null;
     let MaxStarForms = null;
     let TrendingForms = null;
+    let ProfileForms = null;
 
     if(this.state.searchType ===  SEARCH_TRENDING){
       TrendingButton = (<Button.Group>
                 <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
                   <Button.Or />
                 <Button positive  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+                  <Button.Or />
+                <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>                  
               </Button.Group>);
       TrendingForms = (
           <Form.Field>
@@ -184,6 +193,8 @@ export default class RepoSearch extends Component {
                 <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
                   <Button.Or />
                 <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+                  <Button.Or />
+                <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>   
               </Button.Group>);
       MinStarForms = (
         <Form.Field>
@@ -197,6 +208,21 @@ export default class RepoSearch extends Component {
           {MaxStarsDropdown}
         </Form.Field>
       );
+    }
+    else if(this.state.searchType === SEARCH_PROFILE){
+      TrendingButton = (<Button.Group>
+                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
+                  <Button.Or />
+                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+                  <Button.Or />
+                <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>   
+              </Button.Group>);
+      ProfileForms = (<Form.Field>
+          <label>Profile Name</label>
+          <Input placeholder='Name' onChange={this.handleChangeProfile} >
+            <input maxLength='50' />
+          </Input>
+      </Form.Field>);    
     }
 
     return (
@@ -215,6 +241,7 @@ export default class RepoSearch extends Component {
                 </Form.Field>
                 {MinStarForms}
                 {MaxStarForms}
+                {ProfileForms}
                 {TrendingForms}
                 <Form.Field>
                   <label>Add In Some Keyword Here!</label>
