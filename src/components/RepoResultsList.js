@@ -1,7 +1,5 @@
 import React from 'react'
 import format from 'date-fns/format'
-import { SEARCH_REPO_WITH_LANGUAGES } from '../queries';
-import { graphql } from 'react-apollo';
 import { Dimmer, Loader, Label } from 'semantic-ui-react'
 import { VIEW_TYPE_WATCH, 
          VIEW_TYPE_CREATED_AT, 
@@ -79,7 +77,7 @@ const extraContentGenerator = (viewType, item) => {
   );
 }
 
-function ResultList({ loading, search, fetchMore, viewType }) {
+function RepoResultList({ loading, search, fetchMore, viewType }) {
   if (loading) {
     return (
       <Dimmer active inverted>
@@ -135,34 +133,4 @@ function ResultList({ loading, search, fetchMore, viewType }) {
   return (null);
 }
 
-const RepoResultListWithData = graphql(SEARCH_REPO_WITH_LANGUAGES,
-  {
-    options: ({ queryString, viewType }) => ({ variables: { queryString } }),
-    props({ data: { loading, search, fetchMore }, viewType }) {
-      return {
-        loading,
-        search,
-        fetchMore() {
-          return fetchMore({
-            variables: { cursor: search.pageInfo.endCursor },
-            updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
-              const previousSearch = previousResult.search || {};
-              const currentSearch = fetchMoreResult.search || {};
-              const previousNodes = previousSearch.nodes || [];
-              const currentNodes = currentSearch.nodes || [];
-              return {
-                ...previousResult,
-                search: {
-                  ...previousSearch,
-                  nodes: [...previousNodes, ...currentNodes],
-                  pageInfo: currentSearch.pageInfo,
-                },
-              };
-            }
-          });
-        }
-      }
-    },
-  })(ResultList);
-
-export default RepoResultListWithData;
+export default RepoResultList;

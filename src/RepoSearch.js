@@ -9,7 +9,7 @@ import AddYears from 'date-fns/add_quarters'
 import Format from 'date-fns/format'
 
 import { Dropdown, Button, Input, Form } from 'semantic-ui-react'
-import RepoResultListWithData from './components/RepoResultsList';
+import RepoResultsListWithData from './components/RepoResultsListWithData';
 
 import {
   LANGUAGES_OPTIONS,
@@ -40,7 +40,7 @@ export default class RepoSearch extends Component {
     super(props);
 
     this.state = {
-      selectedLanguage: DEFAULT_SELECTED_LANGUAGE ,
+      selectedLanguage: DEFAULT_SELECTED_LANGUAGE,
       selectedTopics: [],
       trendingSince: MONTH_VALUE,
       minStars: DEFAULT_MIN_STARS,
@@ -61,6 +61,7 @@ export default class RepoSearch extends Component {
     this.handleChangeTrending = this.handleChangeTrending.bind(this);
     this.handleChangeAdditionInfo = this.handleChangeAdditionInfo.bind(this);
     this.handleChangeRepoType = this.handleChangeRepoType.bind(this);
+    this.handleChangeProfile = this.handleChangeProfile.bind(this);
   }
 
   handleSearchClick(e) {
@@ -69,7 +70,15 @@ export default class RepoSearch extends Component {
     let topicQuery = '';
     let trendingQuery = '';
     let languageQuery = '';
+    let queryString = '';
     let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;
+
+
+    if(this.state.searchType === SEARCH_PROFILE){
+      queryString = this.state.profileName;
+      this.setState({queryString:queryString});
+      return;
+    }
 
     if (this.state.selectedTopics.length > 0) {
       const topicArray = this.state.selectedTopics.map((topic) => { return `topic:${topic}` });
@@ -81,7 +90,7 @@ export default class RepoSearch extends Component {
       let today = new Date();
       let lastMonth = AddMonths(today, -1);
       let lastQuater = AddQuarters(today, -1);
-      let lastYear = AddYears(today , -1);
+      let lastYear = AddYears(today, -1);
 
       switch (this.state.trendingSince) {
         case MONTH_VALUE:
@@ -101,7 +110,7 @@ export default class RepoSearch extends Component {
           break;
         case LAST_YEAR_VALUE:
           topicQuery = 'created:>' + Format(StartOfYear(lastYear), 'YYYY-MM-DD');
-          break;  
+          break;
         default:
           break;
       }
@@ -111,7 +120,7 @@ export default class RepoSearch extends Component {
     if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
 
-    let queryString = `
+    queryString = `
             ${languageQuery}
             ${topicQuery} 
             ${trendingQuery}
@@ -138,16 +147,16 @@ export default class RepoSearch extends Component {
   }
 
   //Change of Trendings dropdown
-  handleChangeTrending(e, {value}) {
+  handleChangeTrending(e, { value }) {
     this.setState({ trendingSince: value });
   }
 
   //Change Search Type Between Trending and Normal
-  handleChangeSearchType(searchType){
-    if(searchType === SEARCH_NORMAL){
-      this.setState({minStars : DEFAULT_MIN_STARS, maxStars : DEFAULT_MAX_STARS});
+  handleChangeSearchType(searchType) {
+    if (searchType === SEARCH_NORMAL) {
+      this.setState({ minStars: DEFAULT_MIN_STARS, maxStars: DEFAULT_MAX_STARS });
     }
-    this.setState({ searchType: searchType});
+    this.setState({ searchType: searchType });
   }
 
   //Change View of RepoResults, Eg, Forks, Created At...
@@ -160,18 +169,18 @@ export default class RepoSearch extends Component {
     this.setState({ additionalInfo: value });
   }
 
-  handleChangeProfile(e, {value}){
-    this.setState({ profileName: value })
+  handleChangeProfile(e, { value }) {
+    this.setState({ profileName: value });
   }
 
-  handleChangeRepoType(e, {value}){
-    this.setState({ repoSearchType: 'StarredRepos'})
+  handleChangeRepoType(e, { value }) {
+    this.setState({ repoSearchType: 'StarredRepos' });
   }
 
 
   render() {
 
-    const RepoResults = this.state.queryString ? <RepoResultListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    const RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
     let TrendingButton = null;
@@ -181,29 +190,29 @@ export default class RepoSearch extends Component {
     let ProfileForms = null;
     let RepoForms = null;
 
-    if(this.state.searchType ===  SEARCH_TRENDING){
+    if (this.state.searchType === SEARCH_TRENDING) {
       TrendingButton = (<Button.Group>
-                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-                  <Button.Or />
-                <Button positive  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-                  <Button.Or />
-                <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>                  
-              </Button.Group>);
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
+        <Button.Or />
+        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+        <Button.Or />
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
+      </Button.Group>);
       TrendingForms = (
-          <Form.Field>
-            <label> Trending Since</label>
-            <Dropdown placeholder='Trending?'  defaultValue={MONTH_VALUE} search selection onChange={this.handleChangeTrending} options={TRENDING_OPTION} />          
-          </Form.Field>
-      );               
+        <Form.Field>
+          <label> Trending Since</label>
+          <Dropdown placeholder='Trending?' defaultValue={MONTH_VALUE} search selection onChange={this.handleChangeTrending} options={TRENDING_OPTION} />
+        </Form.Field>
+      );
     }
-    else if(this.state.searchType === SEARCH_NORMAL){
+    else if (this.state.searchType === SEARCH_NORMAL) {
       TrendingButton = (<Button.Group>
-                <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-                  <Button.Or />
-                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-                  <Button.Or />
-                <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>   
-              </Button.Group>);
+        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
+        <Button.Or />
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+        <Button.Or />
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
+      </Button.Group>);
       MinStarForms = (
         <Form.Field>
           <label> Min Stars </label>
@@ -217,31 +226,31 @@ export default class RepoSearch extends Component {
         </Form.Field>
       );
     }
-    else if(this.state.searchType === SEARCH_PROFILE){
+    else if (this.state.searchType === SEARCH_PROFILE) {
       TrendingButton = (<Button.Group>
-                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-                  <Button.Or />
-                <Button  onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-                  <Button.Or />
-                <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>   
-              </Button.Group>);
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
+        <Button.Or />
+        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+        <Button.Or />
+        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
+      </Button.Group>);
       ProfileForms = (<Form.Field>
-          <label>User Profile</label>
-          <Input placeholder='Login ID or Email' onChange={this.handleChangeProfile} >
-            <input maxLength='50' />
-          </Input>
-      </Form.Field>);    
+        <label>User Profile</label>
+        <Input placeholder='Login ID or Email' onChange={this.handleChangeProfile} >
+          <input maxLength='50' />
+        </Input>
+      </Form.Field>);
       RepoForms = (<Form.Field>
-        <label>Repo Typee</label>
+        <label>Repo Type</label>
         <Dropdown defaultValue="StarredRepos" search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
-    </Form.Field>);    
+      </Form.Field>);
     }
 
     return (
       <div>
         <div className='row'>
           {TrendingButton}
-          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />                                      
+          <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
         </div>
         <div className='ui column stackable grid' style={{ marginTop: 1 + '%' }}>
           <div className='column'>
@@ -249,7 +258,7 @@ export default class RepoSearch extends Component {
               <Form.Group widths='equal'>
                 <Form.Field>
                   <label> Languages </label>
-                  <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE}  search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
+                  <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE} search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
                 </Form.Field>
                 {MinStarForms}
                 {MaxStarForms}
@@ -263,7 +272,7 @@ export default class RepoSearch extends Component {
                   </Input>
                 </Form.Field>
                 <Form.Field>
-                  <Button primary as='button' onClick={this.handleSearchClick} style={{  marginTop: 23 + 'px' }}> Search </Button>                
+                  <Button primary as='button' onClick={this.handleSearchClick} style={{ marginTop: 23 + 'px' }}> Search </Button>
                 </Form.Field>
               </Form.Group>
             </Form>
