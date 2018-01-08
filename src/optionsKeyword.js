@@ -68,7 +68,6 @@ export const MAX_STARS_OPTIONS = [
 ];
 
 export const REPO_SEARCH_OPTIONS = [
-    { text: 'Starred Repos', value: 'StarredRepos' },
     { text: 'Owned Repos', value: 'OwnedRepos' },
     { text: 'Forked Repos', value: 'ForkedRepos' },    
 ]

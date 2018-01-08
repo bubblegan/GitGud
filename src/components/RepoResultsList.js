@@ -94,8 +94,8 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
 
     //Determine normal search or nested inside user
     if(search.nodes[0] && search.nodes[0].__typename === 'User'){
-      itemList = search.nodes[0].starredRepositories.nodes;
-      hasNextPage = search.nodes[0].starredRepositories.pageInfo.hasNextPage;
+      itemList = search.nodes[0].repositories.nodes;
+      hasNextPage = search.nodes[0].repositories.pageInfo.hasNextPage;
     } else{
       itemList = search.nodes;
       hasNextPage = search.pageInfo.hasNextPage;

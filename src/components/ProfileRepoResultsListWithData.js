@@ -13,6 +13,9 @@ const RepoResultListWithData = graphql(SEARCH_PROFILE_STARRED_REPO,
           return fetchMore({
             variables: { cursor: search.nodes[0].starredRepositories.pageInfo.endCursor },
             updateQuery: (previousResult = {}, { fetchMoreResult = {} }) => {
+              console.log(previousResult);
+              console.log(fetchMoreResult);
+
               const previousSearch = previousResult.search || {};
               const currentSearch = fetchMoreResult.search || {};
               const previousRepo = previousSearch.nodes[0].starredRepositories || {}

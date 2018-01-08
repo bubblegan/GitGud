@@ -66,7 +66,7 @@ export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($querySt
       ... on User{
         email
         login
-        starredRepositories(first: 30, after : $cursor){
+        repositories(first: 30, after : $cursor,orderBy: {field: STARGAZERS, direction: DESC}){
           totalCount
           pageInfo {
             endCursor
