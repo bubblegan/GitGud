@@ -10,6 +10,7 @@ import Format from 'date-fns/format'
 
 import { Dropdown, Button, Input, Form } from 'semantic-ui-react'
 import RepoResultsListWithData from './components/RepoResultsListWithData';
+import ProfileStarredRepoResultsListWithData from './components/ProfileRepoResultsListWithData';
 
 import {
   LANGUAGES_OPTIONS,
@@ -156,6 +157,9 @@ export default class RepoSearch extends Component {
     if (searchType === SEARCH_NORMAL) {
       this.setState({ minStars: DEFAULT_MIN_STARS, maxStars: DEFAULT_MAX_STARS });
     }
+    if(searchType === SEARCH_PROFILE){
+      this.setState({ queryString : ''});      
+    }
     this.setState({ searchType: searchType });
   }
 
@@ -180,7 +184,13 @@ export default class RepoSearch extends Component {
 
   render() {
 
-    const RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    let RepoResults = null;
+    if(this.state.searchType === SEARCH_PROFILE){
+      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    } else {
+      RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    }
+
     const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
     let TrendingButton = null;

@@ -60,7 +60,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
   }
 }`
 
-export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($queryString : String!, $cursor: String!){
+export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($queryString : String!, $cursor: String){
   search(query: $queryString, type: USER, first: 1){
     nodes{
       ... on User{
@@ -68,13 +68,17 @@ export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($querySt
         login
         starredRepositories(first: 30, after : $cursor){
           totalCount
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
           nodes{
             ... on Repository{                
               name
               url
               description
               createdAt
-              pushedAt
+              pushedAt              
               issues(states:OPEN){
                 totalCount
               }

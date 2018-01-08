@@ -78,6 +78,10 @@ const extraContentGenerator = (viewType, item) => {
 }
 
 function RepoResultList({ loading, search, fetchMore, viewType }) {
+  
+  //Determine normal search or nested inside user
+  let hasNextPage = false;
+
   if (loading) {
     return (
       <Dimmer active inverted>
@@ -85,7 +89,20 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
       </Dimmer>);
   } 
   else if (search) {
-    const nodeList = search.nodes.map((item) => {
+
+    let itemList = null;
+
+    //Determine normal search or nested inside user
+    if(search.nodes[0] && search.nodes[0].__typename === 'User'){
+      itemList = search.nodes[0].starredRepositories.nodes;
+      hasNextPage = search.nodes[0].starredRepositories.pageInfo.hasNextPage;
+    } else{
+      itemList = search.nodes;
+      hasNextPage = search.pageInfo.hasNextPage;
+    }
+
+
+    const nodeList = itemList.map((item) => {
       let topicLabels = null;
 
       //Get Topic
@@ -121,7 +138,7 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
     return (
       <InfiniteScroll
         loadMore={fetchMore}
-        hasMore={search.pageInfo.hasNextPage}
+        hasMore={hasNextPage}
         loader={<p>Loading...</p>}
         element={'div'}
         className='ui cards'
