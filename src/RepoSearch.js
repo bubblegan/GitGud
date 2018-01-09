@@ -47,7 +47,7 @@ export default class RepoSearch extends Component {
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
       searchType: SEARCH_NORMAL,
-      repoSearchType: 'StarredRepos',
+      repoSearchType: 'OwnedRepos',
       profileName: '',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
@@ -178,7 +178,7 @@ export default class RepoSearch extends Component {
   }
 
   handleChangeRepoType(e, { value }) {
-    this.setState({ repoSearchType: 'StarredRepos' });
+    this.setState({ repoSearchType: 'OwnedRepos' });
   }
 
 
@@ -252,7 +252,7 @@ export default class RepoSearch extends Component {
       </Form.Field>);
       RepoForms = (<Form.Field>
         <label>Repo Type</label>
-        <Dropdown defaultValue="StarredRepos" search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
+        <Dropdown defaultValue="OwnedRepos" search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
       </Form.Field>);
     }
 
