@@ -157,9 +157,7 @@ export default class RepoSearch extends Component {
     if (searchType === SEARCH_NORMAL) {
       this.setState({ minStars: DEFAULT_MIN_STARS, maxStars: DEFAULT_MAX_STARS });
     }
-    if(searchType === SEARCH_PROFILE){
-      this.setState({ queryString : ''});      
-    }
+    this.setState({ queryString : ''});      
     this.setState({ searchType: searchType });
   }
 
