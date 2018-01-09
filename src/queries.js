@@ -60,13 +60,13 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
   }
 }`
 
-export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($queryString : String!, $cursor: String){
+export const SEARCH_PROFILE_STARRED_REPO = gql` query ProfileRepoSearch($queryString : String!, $cursor: String, $isForked : Boolean!){
   search(query: $queryString, type: USER, first: 1){
     nodes{
       ... on User{
         email
         login
-        repositories(first: 30, after : $cursor,orderBy: {field: STARGAZERS, direction: DESC}){
+        repositories(first: 30, after : $cursor,orderBy: {field: STARGAZERS, direction: DESC}, isFork: $isForked ){
           totalCount
           pageInfo {
             endCursor

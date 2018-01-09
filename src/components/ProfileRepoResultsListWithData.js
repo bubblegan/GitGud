@@ -4,7 +4,7 @@ import RepoResultList from './RepoResultsList';
 
 const RepoResultListWithData = graphql(SEARCH_PROFILE_STARRED_REPO,
   {
-    options: ({ queryString, viewType }) => ({ variables: { queryString } }),
+    options: ({ queryString, viewType, isForked }) => ({ variables: { queryString, isForked } }),
     props({ data: { loading, search, fetchMore }, viewType }) {
       return {
         loading,

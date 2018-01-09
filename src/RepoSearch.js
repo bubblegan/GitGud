@@ -47,7 +47,7 @@ export default class RepoSearch extends Component {
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
       searchType: SEARCH_NORMAL,
-      repoSearchType: 'OwnedRepos',
+      repoIsForked: false,
       profileName: '',
       queryString: '',
       viewType: VIEW_TYPE_FORK,
@@ -176,15 +176,17 @@ export default class RepoSearch extends Component {
   }
 
   handleChangeRepoType(e, { value }) {
-    this.setState({ repoSearchType: 'OwnedRepos' });
+    let isForked = value === 'OwnedRepos' ? false : true;
+    this.setState({ repoIsForked: isForked });
   }
 
 
   render() {
 
     let RepoResults = null;
+    
     if(this.state.searchType === SEARCH_PROFILE){
-      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     } else {
       RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     }
