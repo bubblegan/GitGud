@@ -75,9 +75,9 @@ export default class RepoSearch extends Component {
     let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;
 
 
-    if(this.state.searchType === SEARCH_PROFILE){
+    if (this.state.searchType === SEARCH_PROFILE) {
       queryString = this.state.profileName;
-      this.setState({queryString:queryString});
+      this.setState({ queryString: queryString });
       return;
     }
 
@@ -157,7 +157,7 @@ export default class RepoSearch extends Component {
     if (searchType === SEARCH_NORMAL) {
       this.setState({ minStars: DEFAULT_MIN_STARS, maxStars: DEFAULT_MAX_STARS });
     }
-    this.setState({ queryString : ''});      
+    this.setState({ queryString: '' });
     this.setState({ searchType: searchType });
   }
 
@@ -184,12 +184,8 @@ export default class RepoSearch extends Component {
   render() {
 
     let RepoResults = null;
-    
-    if(this.state.searchType === SEARCH_PROFILE){
-      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    } else {
-      RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    }
+
+
 
     const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
@@ -199,6 +195,25 @@ export default class RepoSearch extends Component {
     let TrendingForms = null;
     let ProfileForms = null;
     let RepoForms = null;
+    let LanguageForms = null;
+    let KeywordForms = null;
+
+
+    if (this.state.searchType === SEARCH_PROFILE) {
+      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+    } else {
+      RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+      LanguageForms = (<Form.Field>
+        <label> Languages </label>
+        <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE} search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
+      </Form.Field>);
+      KeywordForms = ( <Form.Field>
+        <label>Add In Some Keyword Here!</label>
+        <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
+          <input maxLength="30" />
+        </Input>
+      </Form.Field>);
+    }
 
     if (this.state.searchType === SEARCH_TRENDING) {
       TrendingButton = (<Button.Group>
@@ -266,21 +281,13 @@ export default class RepoSearch extends Component {
           <div className='column'>
             <Form>
               <Form.Group widths='equal'>
-                <Form.Field>
-                  <label> Languages </label>
-                  <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE} search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
-                </Form.Field>
+                {LanguageForms}
                 {MinStarForms}
                 {MaxStarForms}
                 {ProfileForms}
                 {TrendingForms}
                 {RepoForms}
-                <Form.Field>
-                  <label>Add In Some Keyword Here!</label>
-                  <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
-                    <input maxLength="30" />
-                  </Input>
-                </Form.Field>
+                {KeywordForms}
                 <Form.Field>
                   <Button primary as='button' onClick={this.handleSearchClick} style={{ marginTop: 23 + 'px' }}> Search </Button>
                 </Form.Field>
