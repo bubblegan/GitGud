@@ -20,6 +20,9 @@ export const LAST_MONTH_VALUE = "last_month";
 export const LAST_QUATER_VALUE = "last_quater";
 export const LAST_YEAR_VALUE = "last_year";
 
+//Repo Type
+export const OWNED_REPO = 'OwnedRepos';
+export const FORKED_REPO = 'ForkedRepos';
 
 export const LANGUAGES_OPTIONS = [
     { text: 'All', value: 'All' },
@@ -68,21 +71,9 @@ export const MAX_STARS_OPTIONS = [
 ];
 
 export const REPO_SEARCH_OPTIONS = [
-    { text: 'Owned Repos', value: 'OwnedRepos' },
-    { text: 'Forked Repos', value: 'ForkedRepos' },    
+    { text: 'Owned Repos', value: OWNED_REPO },
+    { text: 'Forked Repos', value: FORKED_REPO },    
 ]
-
-//Temperory Not in Used. Experimental
-export const TOPIC_OPTIONS = [
-    { text: 'Testing', value: 'Testing' },
-    { text: 'Frontend', value: 'Frontend' },
-    { text: 'Machine Learning', value: 'Machine Learning' },
-    { text: 'React', value: 'React' },
-    { text: 'Angular', value: 'Angular' },
-    { text: 'Vue', value: 'Vue' },
-    { text: 'Ui', value: 'Ui' },
-    { text: 'Library', value: 'Library' },
-];
 
 export const TRENDING_OPTION = [
     { text: 'Trending This Month', value: MONTH_VALUE },

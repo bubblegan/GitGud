@@ -26,6 +26,7 @@ import {
   LAST_YEAR_VALUE,
   LAST_QUATER_VALUE,
   REPO_SEARCH_OPTIONS,
+  OWNED_REPO,
 } from './optionsKeyword';
 
 const DEFAULT_MIN_STARS = 10000;
@@ -176,7 +177,7 @@ export default class RepoSearch extends Component {
   }
 
   handleChangeRepoType(e, { value }) {
-    let isForked = value === 'OwnedRepos' ? false : true;
+    let isForked = value === OWNED_REPO ? false : true;
     this.setState({ repoIsForked: isForked });
   }
 
@@ -267,7 +268,7 @@ export default class RepoSearch extends Component {
       </Form.Field>);
       RepoForms = (<Form.Field>
         <label>Repo Type</label>
-        <Dropdown defaultValue="OwnedRepos" search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
+        <Dropdown defaultValue={OWNED_REPO} search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
       </Form.Field>);
     }
 
