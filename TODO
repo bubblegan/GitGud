@@ -1,15 +1,6 @@
 Features TODO - REPOS
 =====================
-DONE (need enchancement) - Add in Query Lefts
--Topics For Repos
-
-
-Features TODO - PROFILE
-=====================
-- Suggestion for Profile
-- Different Charts
-
-
-
-Deployment TODO
-==============
+- Error Handling in Apollo Client
+- Nav Bar sticky
+- Duplicate key for react cards need to solve
+-

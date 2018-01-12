@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <div className="ui container" style={{marginTop : 3 + '%'}}>
+          <div className="ui container">
             <RepoSearch />
           </div>
         </div>

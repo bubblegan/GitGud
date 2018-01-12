@@ -185,12 +185,9 @@ export default class RepoSearch extends Component {
   render() {
 
     let RepoResults = null;
-
-
-
     const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
-    let TrendingButton = null;
+    let SearchTypeButton = null;
     let MinStarForms = null;
     let MaxStarForms = null;
     let TrendingForms = null;
@@ -217,7 +214,7 @@ export default class RepoSearch extends Component {
     }
 
     if (this.state.searchType === SEARCH_TRENDING) {
-      TrendingButton = (<Button.Group>
+      SearchTypeButton = (<Button.Group>
         <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
         <Button.Or />
         <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
@@ -232,7 +229,7 @@ export default class RepoSearch extends Component {
       );
     }
     else if (this.state.searchType === SEARCH_NORMAL) {
-      TrendingButton = (<Button.Group>
+      SearchTypeButton = (<Button.Group>
         <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
         <Button.Or />
         <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
@@ -253,7 +250,7 @@ export default class RepoSearch extends Component {
       );
     }
     else if (this.state.searchType === SEARCH_PROFILE) {
-      TrendingButton = (<Button.Group>
+      SearchTypeButton = (<Button.Group>
         <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
         <Button.Or />
         <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
@@ -274,8 +271,8 @@ export default class RepoSearch extends Component {
 
     return (
       <div>
-        <div className='row'>
-          {TrendingButton}
+        <div className='row'  style={{paddingBottom: 1 + 'em',paddingTop : 3 + '%', background: 'white', zIndex: 2, position: 'sticky', top: 0}} >
+          {SearchTypeButton}
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
         </div>
         <div className='ui column stackable grid' style={{ marginTop: 1 + '%' }}>
@@ -296,7 +293,7 @@ export default class RepoSearch extends Component {
             </Form>
           </div>
         </div>
-        <div style={{ paddingTop: 2 + '%' }}>
+        <div style={{ paddingTop: 2 + '%', marginLeft: 3 + 'px' }}>
           {RepoResults}
         </div>
       </div>
