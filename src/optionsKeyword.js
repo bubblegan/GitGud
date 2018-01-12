@@ -48,6 +48,7 @@ export const LANGUAGES_OPTIONS = [
     { text: 'Swift', value: 'Swift' },
     { text: 'Dart', value: 'Dart' },
     { text: 'Haskell', value: 'Haskell' },
+    { text: 'Rust', value: 'Rust' },
 ];
 
 export const MIN_STARS_OPTIONS = [
