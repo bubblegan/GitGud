@@ -1,6 +1,7 @@
 # GitGud
 
-> Experimental project with GraphQL and Github API.
+> Card Style Github Search! Build With React, Semantic-React, Apollo Client(GraphQL).
+> Live Demo : https://gudgit.herokuapp.com  (sadly gitgud was taken)
 
 # Build Setup
 
