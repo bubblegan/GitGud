@@ -271,7 +271,7 @@ export default class RepoSearch extends Component {
 
     return (
       <div>
-        <div className='row'  style={{paddingBottom: 1 + 'em',paddingTop : 3 + '%', background: 'white', zIndex: 2, position: 'sticky', top: 0}} >
+        <div className='row'  style={{paddingBottom: 1 + 'em',paddingTop : 3 + '%', background: 'white', zIndex: 2, position: 'sticky', top: 0, boxShadow: "0 2px 2px -2px grey"}} >
           {SearchTypeButton}
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
         </div>
