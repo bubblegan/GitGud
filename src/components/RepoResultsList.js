@@ -11,7 +11,7 @@ import { VIEW_TYPE_WATCH,
          VIEW_TYPE_BUGS,
          VIEW_TYPE_GRABS,
          VIEW_TYPE_HELP,
-         VIEW_LANGUAGE } from '../optionsKeyword';
+         VIEW_LANGUAGE } from '../constant/optionsKeyword';
 
 import InfiniteScroll from 'react-infinite-scroller';
 

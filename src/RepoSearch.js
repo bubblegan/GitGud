@@ -27,7 +27,7 @@ import {
   LAST_QUATER_VALUE,
   REPO_SEARCH_OPTIONS,
   OWNED_REPO,
-} from './optionsKeyword';
+} from './constant/optionsKeyword';
 
 const DEFAULT_MIN_STARS = 10000;
 const DEFAULT_MAX_STARS = 500000;
