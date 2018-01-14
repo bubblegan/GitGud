@@ -77,12 +77,12 @@ export const REPO_SEARCH_OPTIONS = [
 ]
 
 export const TRENDING_OPTION = [
-    { text: 'Trending This Month', value: MONTH_VALUE },
-    { text: 'Trending This Quater', value: QUATER_VALUE },
-    { text: 'Trending This Year', value: YEAR_VALUE },
-    { text: 'Trending Last Month', value: LAST_MONTH_VALUE },
-    { text: 'Trending Last Quater', value: LAST_QUATER_VALUE },
-    { text: 'Trending Last Year', value: LAST_YEAR_VALUE },
+    { text: 'This Month', value: MONTH_VALUE },
+    { text: 'This Quater', value: QUATER_VALUE },
+    { text: 'This Year', value: YEAR_VALUE },
+    { text: 'Last Month', value: LAST_MONTH_VALUE },
+    { text: 'Last Quater', value: LAST_QUATER_VALUE },
+    { text: 'Last Year', value: LAST_YEAR_VALUE },
 ];
 
 export const VIEW_OPTION = [

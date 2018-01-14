@@ -17,6 +17,7 @@ import {
   MAX_STARS_OPTIONS,
   MIN_STARS_OPTIONS,
   TRENDING_OPTION,
+  REPO_SEARCH_OPTIONS,
   VIEW_OPTION,
   VIEW_TYPE_FORK,
   MONTH_VALUE,
@@ -25,7 +26,6 @@ import {
   LAST_MONTH_VALUE,
   LAST_YEAR_VALUE,
   LAST_QUATER_VALUE,
-  REPO_SEARCH_OPTIONS,
   OWNED_REPO,
 } from './constant/optionsKeyword';
 
@@ -43,7 +43,6 @@ export default class RepoSearch extends Component {
 
     this.state = {
       selectedLanguage: DEFAULT_SELECTED_LANGUAGE,
-      selectedTopics: [],
       trendingSince: MONTH_VALUE,
       minStars: DEFAULT_MIN_STARS,
       maxStars: DEFAULT_MAX_STARS,
@@ -69,22 +68,15 @@ export default class RepoSearch extends Component {
   handleSearchClick(e) {
     e.preventDefault();
 
-    let topicQuery = '';
     let trendingQuery = '';
     let languageQuery = '';
     let queryString = '';
     let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;
 
-
     if (this.state.searchType === SEARCH_PROFILE) {
       queryString = this.state.profileName;
       this.setState({ queryString: queryString });
       return;
-    }
-
-    if (this.state.selectedTopics.length > 0) {
-      const topicArray = this.state.selectedTopics.map((topic) => { return `topic:${topic}` });
-      topicQuery = topicArray.join(" ");
     }
 
     //Overwrite Stars if Trending
@@ -96,22 +88,22 @@ export default class RepoSearch extends Component {
 
       switch (this.state.trendingSince) {
         case MONTH_VALUE:
-          topicQuery = 'created:>' + Format(StartOfMonth(today), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfMonth(today), 'YYYY-MM-DD');
           break;
         case QUATER_VALUE:
-          topicQuery = 'created:>' + Format(StartOfQuarter(today), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfQuarter(today), 'YYYY-MM-DD');
           break;
         case YEAR_VALUE:
-          topicQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfYear(today), 'YYYY-MM-DD');
           break;
         case LAST_MONTH_VALUE:
-          topicQuery = 'created:>' + Format(StartOfMonth(lastMonth), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfMonth(lastMonth), 'YYYY-MM-DD');
           break;
         case LAST_QUATER_VALUE:
-          topicQuery = 'created:>' + Format(StartOfQuarter(lastQuater), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfQuarter(lastQuater), 'YYYY-MM-DD');
           break;
         case LAST_YEAR_VALUE:
-          topicQuery = 'created:>' + Format(StartOfYear(lastYear), 'YYYY-MM-DD');
+          trendingQuery = 'created:>' + Format(StartOfYear(lastYear), 'YYYY-MM-DD');
           break;
         default:
           break;
@@ -119,12 +111,12 @@ export default class RepoSearch extends Component {
       starsQuery = `stars:>${DEFAULT_TRENDING_STARS}`;
     }
 
-    if (this.state.selectedLanguage !== 'All')
+    if (this.state.selectedLanguage !== 'All') {
       languageQuery = `language:${this.state.selectedLanguage}`;
+    }
 
     queryString = `
             ${languageQuery}
-            ${topicQuery} 
             ${trendingQuery}
             sort:stars 
             ${starsQuery}
@@ -196,7 +188,6 @@ export default class RepoSearch extends Component {
     let LanguageForms = null;
     let KeywordForms = null;
 
-
     if (this.state.searchType === SEARCH_PROFILE) {
       RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
     } else {
@@ -205,7 +196,7 @@ export default class RepoSearch extends Component {
         <label> Languages </label>
         <Dropdown defaultValue={DEFAULT_SELECTED_LANGUAGE} search selection options={LANGUAGES_OPTIONS} onChange={this.handleChangeLanguage} />
       </Form.Field>);
-      KeywordForms = ( <Form.Field>
+      KeywordForms = (<Form.Field>
         <label>Add In Some Keyword Here!</label>
         <Input placeholder='Additional Info' onChange={this.handleChangeAdditionInfo} >
           <input maxLength="30" />
@@ -271,7 +262,7 @@ export default class RepoSearch extends Component {
 
     return (
       <div>
-        <div className='row'  style={{paddingBottom: 1 + 'em',paddingTop : 3 + '%', background: 'white', zIndex: 2, position: 'sticky', top: 0, boxShadow: "0 2px 2px -2px grey"}} >
+        <div className='row' style={{ paddingBottom: 1 + 'em', paddingTop: 3 + '%', background: 'white', zIndex: 2, position: 'sticky', top: 0, boxShadow: "0 2px 2px -2px grey" }} >
           {SearchTypeButton}
           <Dropdown button className='icon' floating labeled icon='unhide' style={{ marginLeft: 1 + 'em' }} onChange={this.handleChangeView} options={VIEW_OPTION} search text='Select View' />
         </div>

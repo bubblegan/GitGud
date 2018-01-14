@@ -12,7 +12,6 @@ import { VIEW_TYPE_WATCH,
          VIEW_TYPE_GRABS,
          VIEW_TYPE_HELP,
          VIEW_LANGUAGE } from '../constant/optionsKeyword';
-
 import InfiniteScroll from 'react-infinite-scroller';
 
 //Thousand Separator Function
