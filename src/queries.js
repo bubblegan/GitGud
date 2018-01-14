@@ -11,6 +11,7 @@ export const SEARCH_REPO_WITH_LANGUAGES = gql`query TopSearchLanguage($queryStri
       }
       nodes {
         ... on Repository {
+          id
           name
           url
           description

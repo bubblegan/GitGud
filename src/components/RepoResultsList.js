@@ -115,7 +115,7 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
       let extraContentView = extraContentGenerator(viewType, item);
 
       return (
-        <div className='card' key={item.name}>
+        <div className='card' key={item.id}>
           <div className="content">
             <img className="right floated mini ui image" src={item.owner.avatarUrl} alt="avatar" />
             <a className="header" href={item.url} target="_blank">{item.name} </a>
