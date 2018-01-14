@@ -52,7 +52,7 @@ export const LANGUAGES_OPTIONS = [
 ];
 
 export const MIN_STARS_OPTIONS = [
-    { text: '-', value: 0 },
+    { text: '-', value: 200 },
     { text: 'At Least 10,000 Stars', value: 10000 },
     { text: 'At Least 8,000 Stars', value: 8000 },
     { text: 'At Least 5,000 Stars', value: 5000 },
