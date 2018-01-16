@@ -65,22 +65,17 @@ export default class RepoSearch extends Component {
     this.handleChangeProfile = this.handleChangeProfile.bind(this);
   }
 
-  handleSearchClick(e) {
-    e.preventDefault();
-
+  //Function to generate the query base on the state.
+  generateQuery() {
     let trendingQuery = '';
     let languageQuery = '';
     let queryString = '';
-    let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;
+    let starsQuery = `stars:${this.state.minStars}..${this.state.maxStars}`;;
 
+    //If search by profile, return profile name.
     if (this.state.searchType === SEARCH_PROFILE) {
-      queryString = this.state.profileName;
-      this.setState({ queryString: queryString });
-      return;
-    }
-
-    //Overwrite Stars if Trending
-    if (this.state.searchType === SEARCH_TRENDING) {
+      return this.state.profileName;
+    } else if(this.state.searchType === SEARCH_TRENDING) {
       let today = new Date();
       let lastMonth = AddMonths(today, -1);
       let lastQuater = AddQuarters(today, -1);
@@ -111,20 +106,28 @@ export default class RepoSearch extends Component {
       starsQuery = `stars:>${DEFAULT_TRENDING_STARS}`;
     }
 
-    if (this.state.selectedLanguage !== 'All') {
+    //Language Query
+    if (this.state.selectedLanguage !== 'All')
       languageQuery = `language:${this.state.selectedLanguage}`;
-    }
-
+    
     queryString = `
-            ${languageQuery}
-            ${trendingQuery}
-            sort:stars 
-            ${starsQuery}
-            ${this.state.additionalInfo}
+      ${languageQuery}
+      ${trendingQuery}
+      sort:stars 
+      ${starsQuery}
+      ${this.state.additionalInfo}
     `;
 
+    return queryString;
+  }
+
+  handleSearchClick(e) {
+    e.preventDefault();
+
+    let queryString = this.generateQuery();
+
     this.setState({
-      queryString: queryString
+      queryString
     });
   }
 
@@ -179,7 +182,6 @@ export default class RepoSearch extends Component {
     let RepoResults = null;
     const MinStarsDropdown = <Dropdown defaultValue={DEFAULT_MIN_STARS} search selection options={MIN_STARS_OPTIONS} onChange={this.handleChangeMinStars} />;
     const MaxStarsDropdown = <Dropdown defaultValue={DEFAULT_MAX_STARS} search selection options={MAX_STARS_OPTIONS} onChange={this.handleChangeMaxStars} />;
-    let SearchTypeButton = null;
     let MinStarForms = null;
     let MaxStarForms = null;
     let TrendingForms = null;
@@ -188,9 +190,15 @@ export default class RepoSearch extends Component {
     let LanguageForms = null;
     let KeywordForms = null;
 
-    if (this.state.searchType === SEARCH_PROFILE) {
-      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
-    } else {
+    let SearchTypeButton = (<Button.Group>
+      <Button positive={this.state.searchType === SEARCH_NORMAL} onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
+      <Button.Or />
+      <Button positive={this.state.searchType === SEARCH_TRENDING} onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
+      <Button.Or />
+      <Button positive={this.state.searchType === SEARCH_PROFILE} onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
+    </Button.Group>);
+
+    if (this.state.searchType !== SEARCH_PROFILE) {
       RepoResults = this.state.queryString ? <RepoResultsListWithData queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
       LanguageForms = (<Form.Field>
         <label> Languages </label>
@@ -203,15 +211,7 @@ export default class RepoSearch extends Component {
         </Input>
       </Form.Field>);
     }
-
     if (this.state.searchType === SEARCH_TRENDING) {
-      SearchTypeButton = (<Button.Group>
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-        <Button.Or />
-        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-        <Button.Or />
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
-      </Button.Group>);
       TrendingForms = (
         <Form.Field>
           <label> Trending Since</label>
@@ -220,13 +220,6 @@ export default class RepoSearch extends Component {
       );
     }
     else if (this.state.searchType === SEARCH_NORMAL) {
-      SearchTypeButton = (<Button.Group>
-        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-        <Button.Or />
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-        <Button.Or />
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
-      </Button.Group>);
       MinStarForms = (
         <Form.Field>
           <label> Min Stars </label>
@@ -241,23 +234,19 @@ export default class RepoSearch extends Component {
       );
     }
     else if (this.state.searchType === SEARCH_PROFILE) {
-      SearchTypeButton = (<Button.Group>
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_NORMAL)}>Normal</Button>
-        <Button.Or />
-        <Button onClick={this.handleChangeSearchType.bind(this, SEARCH_TRENDING)}>Trending</Button>
-        <Button.Or />
-        <Button positive onClick={this.handleChangeSearchType.bind(this, SEARCH_PROFILE)}>Profile</Button>
-      </Button.Group>);
-      ProfileForms = (<Form.Field>
-        <label>User Profile</label>
-        <Input placeholder='Login ID or Email' onChange={this.handleChangeProfile} >
-          <input maxLength='50' />
-        </Input>
-      </Form.Field>);
-      RepoForms = (<Form.Field>
-        <label>Repo Type</label>
-        <Dropdown defaultValue={OWNED_REPO} search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
-      </Form.Field>);
+      RepoResults = this.state.queryString ? <ProfileStarredRepoResultsListWithData isForked={this.state.repoIsForked} queryString={this.state.queryString} viewType={this.state.viewType} /> : null;
+      ProfileForms = (
+        <Form.Field>
+          <label>User Profile</label>
+          <Input placeholder='Login ID or Email' onChange={this.handleChangeProfile} >
+            <input maxLength='50' />
+          </Input>
+        </Form.Field>);
+      RepoForms = (
+        <Form.Field>
+          <label>Repo Type</label>
+          <Dropdown defaultValue={OWNED_REPO} search selection options={REPO_SEARCH_OPTIONS} onChange={this.handleChangeRepoType} />
+        </Form.Field>);
     }
 
     return (
