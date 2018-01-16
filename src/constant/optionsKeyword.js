@@ -78,10 +78,10 @@ export const REPO_SEARCH_OPTIONS = [
 
 export const TRENDING_OPTION = [
     { text: 'This Month', value: MONTH_VALUE },
-    { text: 'This Quater', value: QUATER_VALUE },
+    { text: 'This Quarter', value: QUATER_VALUE },
     { text: 'This Year', value: YEAR_VALUE },
     { text: 'Last Month', value: LAST_MONTH_VALUE },
-    { text: 'Last Quater', value: LAST_QUATER_VALUE },
+    { text: 'Last Quarter', value: LAST_QUATER_VALUE },
     { text: 'Last Year', value: LAST_YEAR_VALUE },
 ];
 
