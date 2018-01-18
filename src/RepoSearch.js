@@ -32,7 +32,7 @@ import {
 const DEFAULT_MIN_STARS = 10000;
 const DEFAULT_MAX_STARS = 500000;
 const DEFAULT_TRENDING_STARS = 200;
-const DEFAULT_SELECTED_LANGUAGE = 'Javascript';
+const DEFAULT_SELECTED_LANGUAGE = 'All';
 const SEARCH_TRENDING = 'trending';
 const SEARCH_NORMAL = 'normal';
 const SEARCH_PROFILE = 'profile';
