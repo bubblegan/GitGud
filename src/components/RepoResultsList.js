@@ -124,7 +124,7 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
             <div className="meta">
               <a href={item.owner.url} target="_blank" >{item.owner.login}</a>
             </div>
-            <div className="description" style={{overflowWrap : breakWord}}>
+            <div className="description" style={{overflowWrap : 'breakWord'}}>
               <p>{item.description}</p>
               {topicLabels}
             </div>
