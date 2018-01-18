@@ -94,10 +94,12 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
     //Determine normal search or nested inside user
     if(search.nodes[0] && search.nodes[0].__typename === 'User'){
       itemList = search.nodes[0].repositories.nodes;
-      hasNextPage = search.nodes[0].repositories.pageInfo.hasNextPage;
+      hasNextPage = search.nodes[0].repositories.pageInfo.hasNextPage;        
     } else{
       itemList = search.nodes;
-      hasNextPage = search.pageInfo.hasNextPage;
+      if(search.pageInfo){
+        hasNextPage = search.pageInfo.hasNextPage;        
+      }
     }
 
 
@@ -107,7 +109,7 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
       //Get Topic
       if (item.repositoryTopics.nodes) {
         topicLabels = item.repositoryTopics.nodes.map((topic) => {
-          return <Label color='teal' style={{ margin: 2 + 'px' }} key={topic.topic.id} horizontal> {topic.topic.name}</Label>;
+          return <Label color='teal' style={{ margin: 2 + 'px' }} key={topic.topic.id + '_' + topic.topic.name} horizontal> {topic.topic.name}</Label>;
         });
       }
 
@@ -115,7 +117,7 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
       let extraContentView = extraContentGenerator(viewType, item);
 
       return (
-        <div className='card' key={item.id}>
+        <div className='card' key={item.id + '_' + item.name}>
           <div className="content">
             <img className="right floated mini ui image" src={item.owner.avatarUrl} alt="avatar" />
             <a className="header" href={item.url} target="_blank">{item.name} </a>
