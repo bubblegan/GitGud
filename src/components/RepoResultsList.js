@@ -21,6 +21,7 @@ const numberWithCommas = (x) => {
 
 const extraContentGenerator = (viewType, item) => {
 
+
   const totalStarView = <span> {numberWithCommas(item.stargazers.totalCount)} <i className="star icon"></i> </span>;
 
   const bugIssueUrl = item.bugIssues.totalCount > 0 ? <a href={item.url+'/issues?q=is%3Aissue+is%3Aopen+label%3Abug'} target="_blank"> Bug Reported </a> : <span> Bug Reported </span> 
@@ -101,6 +102,9 @@ function RepoResultList({ loading, search, fetchMore, viewType }) {
         hasNextPage = search.pageInfo.hasNextPage;        
       }
     }
+
+    if(search.nodes[0] && search.nodes[0].__typename === 'Organization')
+      itemList = [];
 
 
     const nodeList = itemList.map((item) => {
