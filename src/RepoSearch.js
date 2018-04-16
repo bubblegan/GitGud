@@ -107,7 +107,7 @@ export default class RepoSearch extends Component {
     }
 
     //Language Query
-    if (this.state.selectedLanguage !== 'All')
+    if (this.state.selectedLanguage !== DEFAULT_SELECTED_LANGUAGE)
       languageQuery = `language:${this.state.selectedLanguage}`;
     
     queryString = `
